@@ -1,0 +1,62 @@
+{
+  "name": "FexCode Marketplace",
+  "version": "1.0.0",
+  "description": "Extensões recomendadas e curadas para FexCode",
+  "categories": [
+    {
+      "name": "IA & Produtividade",
+      "icon": "🤖",
+      "extensions": [
+        {"id": "fexai.copilot", "name": "FexAI Copilot", "desc": "Completação de código via IA local", "builtin": true},
+        {"id": "gruntfuggly.todo-tree", "name": "Todo Tree", "desc": "Visualize TODOs no código"},
+        {"id": "usernamehw.errorlens", "name": "Error Lens", "desc": "Erros inline no editor"}
+      ]
+    },
+    {
+      "name": "Web Development",
+      "icon": "🌐",
+      "extensions": [
+        {"id": "dbaeumer.vscode-eslint", "name": "ESLint", "desc": "Linting JavaScript/TypeScript"},
+        {"id": "esbenp.prettier-vscode", "name": "Prettier", "desc": "Code formatter"},
+        {"id": "bradlc.vscode-tailwindcss", "name": "Tailwind CSS", "desc": "Autocomplete Tailwind"},
+        {"id": "ritwickdey.liveserver", "name": "Live Server", "desc": "Dev server com hot reload"}
+      ]
+    },
+    {
+      "name": "Game Development",
+      "icon": "🎮",
+      "extensions": [
+        {"id": "geequlim.godot-tools", "name": "Godot Tools", "desc": "Suporte Godot 4+"},
+        {"id": "sumneko.lua", "name": "Lua", "desc": "Para scripts de jogos"},
+        {"id": "vadimcn.vscode-lldb", "name": "CodeLLDB", "desc": "Debug C/C++/Rust"}
+      ]
+    },
+    {
+      "name": "Mobile Dev",
+      "icon": "📱",
+      "extensions": [
+        {"id": "dart-code.flutter", "name": "Flutter", "desc": "Desenvolvimento Flutter"},
+        {"id": "dart-code.dart-code", "name": "Dart", "desc": "Linguagem Dart"},
+        {"id": "nickmillerdev.react-native-tools", "name": "React Native", "desc": "Debug React Native"}
+      ]
+    },
+    {
+      "name": "DevOps & Containers",
+      "icon": "🐳",
+      "extensions": [
+        {"id": "ms-azuretools.vscode-docker", "name": "Docker", "desc": "Gerenciar containers"},
+        {"id": "ms-kubernetes-tools.vscode-kubernetes-tools", "name": "Kubernetes", "desc": "K8s cluster management"},
+        {"id": "hashicorp.terraform", "name": "Terraform", "desc": "Infrastructure as Code"}
+      ]
+    },
+    {
+      "name": "Tema & Visual",
+      "icon": "🎨",
+      "extensions": [
+        {"id": "phantom-neon-theme", "name": "Phantom Neon", "desc": "Tema cyberpunk oficial", "builtin": true},
+        {"id": "pkief.material-icon-theme", "name": "Material Icons", "desc": "Ícones para arquivos"},
+        {"id": "miguelsolorio.fluent-icons", "name": "Fluent Icons", "desc": "Ícones modernos UI"}
+      ]
+    }
+  ]
+}

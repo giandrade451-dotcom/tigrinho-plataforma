@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=PhantomArch V3
+Description=PhantomArch premium boot animation
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/phantom-v3
+ScriptFile=/usr/share/plymouth/themes/phantom-v3/phantom-v3.script

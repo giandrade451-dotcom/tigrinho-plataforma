@@ -1,0 +1,106 @@
+# PhantomArch V3 — Stability & UX Packages
+# Bug fix, recovery, UI polish, integration
+
+# === Notification Center ===
+swaync
+
+# === Power Menu ===
+wlogout
+
+# === Clipboard Manager ===
+cliphist
+wl-clipboard
+
+# === Screenshot ===
+grimblast-git
+hyprpicker
+grim
+slurp
+
+# === Color Picker ===
+# hyprpicker (above)
+
+# === File Manager ===
+dolphin
+dolphin-plugins
+ark
+kate
+gwenview
+spectacle
+
+# === System Monitor ===
+btop
+nvtop
+iotop
+duf
+ncdu
+
+# === Recovery Tools ===
+testdisk
+ddrescue
+timeshift
+snapper
+
+# === Boot ===
+plymouth
+grub-btrfs
+
+# === SDDM Theme ===
+sddm
+qt6-5compat
+qt6-declarative
+qt6-svg
+
+# === Network (stability) ===
+networkmanager
+network-manager-applet
+blueman
+bluez
+bluez-utils
+
+# === Fonts (UI premium) ===
+inter-font
+ttf-jetbrains-mono-nerd
+noto-fonts
+noto-fonts-cjk
+noto-fonts-emoji
+ttf-liberation
+ttf-hack-nerd
+
+# === Icons/Cursors ===
+papirus-icon-theme
+bibata-cursor-theme
+
+# === Wallpaper ===
+hyprpaper
+swaybg
+
+# === Audio tools ===
+pavucontrol
+helvum
+easyeffects
+
+# === Polkit ===
+polkit-kde-agent
+
+# === Keyring ===
+gnome-keyring
+seahorse
+
+# === Compression ===
+p7zip
+unrar
+unzip
+zip
+
+# === Wine stability ===
+wine-mono
+wine-gecko
+lib32-gnutls
+lib32-sdl2
+
+# === Process management ===
+ananicy-cpp
+irqbalance
+preload
+earlyoom
