@@ -1,0 +1,33 @@
+#!/bin/bash
+# PhantomArch — Game Engines Launcher
+CYAN='\033[0;36m'
+GREEN='\033[0;32m'
+PURPLE='\033[0;35m'
+NC='\033[0m'
+
+echo -e "${PURPLE}━━━ PhantomArch Engines Launcher ━━━${NC}"
+echo ""
+echo -e "  ${CYAN}[1]${NC} Godot Engine"
+echo -e "  ${CYAN}[2]${NC} Blender"
+echo -e "  ${CYAN}[3]${NC} Unity Hub (via Flatpak)"
+echo -e "  ${CYAN}[4]${NC} Unreal Engine (setup)"
+echo -e "  ${CYAN}[5]${NC} Krita (2D Art)"
+echo -e "  ${CYAN}[6]${NC} GIMP"
+echo -e "  ${CYAN}[7]${NC} Aseprite (Pixel Art)"
+echo -e "  ${CYAN}[8]${NC} Audacity (Audio)"
+echo -e "  ${CYAN}[0]${NC} Voltar"
+echo ""
+echo -ne "  Escolha: "
+read -r choice
+
+case $choice in
+    1) godot &>/dev/null & echo "Godot aberto" ;;
+    2) blender &>/dev/null & echo "Blender aberto" ;;
+    3) flatpak run com.unity.UnityHub &>/dev/null & echo "Unity Hub aberto" ;;
+    4) echo "Unreal Engine: https://www.unrealengine.com/linux" ;;
+    5) krita &>/dev/null & echo "Krita aberto" ;;
+    6) gimp &>/dev/null & echo "GIMP aberto" ;;
+    7) echo "Aseprite: disponível via AUR (aseprite)" ;;
+    8) audacity &>/dev/null & echo "Audacity aberto" ;;
+    0) exit 0 ;;
+esac

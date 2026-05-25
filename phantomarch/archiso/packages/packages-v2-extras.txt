@@ -1,0 +1,74 @@
+# ============================================================
+# PhantomArch V2 — Pacotes Extras (Dev Tools, UI, Performance)
+# ============================================================
+
+# --- Dev Tools Adicionais ---
+bun
+dotnet-sdk
+go
+zig
+lua
+luarocks
+clang
+llvm
+gcc
+cmake
+meson
+ninja
+bear
+valgrind
+gdb
+strace
+ltrace
+
+# --- Containers ---
+docker
+docker-compose
+podman
+podman-compose
+distrobox
+kubectl
+helm
+
+# --- Game Engines deps ---
+godot
+blender
+
+# --- UI/UX Tools ---
+latte-dock
+kvantum
+kvantum-qt5
+plasma-systemmonitor
+kdeplasma-addons
+kdeconnect
+
+# --- Performance Extras ---
+preload
+ananicy-cpp
+irqbalance
+thermald
+power-profiles-daemon
+cpupower
+turbostat
+perf
+stress-ng
+s-tui
+
+# --- Benchmarking ---
+glmark2
+vulkan-tools
+mesa-demos
+sysbench
+
+# --- Screenshot/Recording ---
+obs-studio
+wf-recorder
+grim
+slurp
+flameshot
+
+# --- Flatpak ---
+flatpak
+xdg-desktop-portal
+xdg-desktop-portal-kde
+xdg-desktop-portal-gtk

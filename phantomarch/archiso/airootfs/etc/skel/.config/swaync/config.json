@@ -1,0 +1,79 @@
+{
+  "positionX": "right",
+  "positionY": "top",
+  "layer": "overlay",
+  "control-center-layer": "top",
+  "layer-shell": true,
+  "cssPriority": "application",
+  "control-center-margin-top": 10,
+  "control-center-margin-bottom": 10,
+  "control-center-margin-right": 10,
+  "control-center-margin-left": 0,
+  "notification-2fa-action": true,
+  "notification-inline-replies": true,
+  "notification-icon-size": 48,
+  "notification-body-image-height": 100,
+  "notification-body-image-width": 200,
+  "timeout": 5,
+  "timeout-low": 3,
+  "timeout-critical": 10,
+  "fit-to-screen": true,
+  "control-center-width": 400,
+  "control-center-height": 600,
+  "notification-window-width": 380,
+  "keyboard-shortcuts": true,
+  "image-visibility": "when-available",
+  "transition-time": 200,
+  "hide-on-clear": false,
+  "hide-on-action": true,
+  "script-fail-notify": true,
+  "widgets": [
+    "title",
+    "dnd",
+    "notifications",
+    "mpris",
+    "volume",
+    "buttons-grid"
+  ],
+  "widget-config": {
+    "title": {
+      "text": "PhantomArch",
+      "clear-all-button": true,
+      "button-text": "Limpar"
+    },
+    "dnd": {
+      "text": "Não Perturbar"
+    },
+    "mpris": {
+      "image-size": 64,
+      "image-radius": 8
+    },
+    "volume": {
+      "label": "🔊"
+    },
+    "buttons-grid": {
+      "actions": [
+        {
+          "label": "🌐",
+          "command": "fexnav"
+        },
+        {
+          "label": "📂",
+          "command": "dolphin"
+        },
+        {
+          "label": "⚡",
+          "command": "kitty -e fex-control-center"
+        },
+        {
+          "label": "🎮",
+          "command": "gamemoded -d"
+        },
+        {
+          "label": "🔒",
+          "command": "hyprlock"
+        }
+      ]
+    }
+  }
+}

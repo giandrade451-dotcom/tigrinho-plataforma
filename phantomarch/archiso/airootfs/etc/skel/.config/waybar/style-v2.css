@@ -1,0 +1,188 @@
+/* PhantomArch V2 — Waybar Futuristic Theme */
+/* Modern, gamer, clean, animated */
+
+@keyframes pulse-neon {
+    0%, 100% { box-shadow: 0 0 4px rgba(189, 147, 249, 0.4); }
+    50% { box-shadow: 0 0 12px rgba(189, 147, 249, 0.8); }
+}
+
+@keyframes gradient-shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+* {
+    font-family: "JetBrainsMono Nerd Font", "Inter", monospace;
+    font-size: 13px;
+    font-weight: 500;
+    min-height: 0;
+}
+
+window#waybar {
+    background: linear-gradient(180deg, rgba(10, 10, 18, 0.95) 0%, rgba(10, 10, 18, 0.88) 100%);
+    border: 1px solid rgba(189, 147, 249, 0.3);
+    border-radius: 14px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 8px rgba(189, 147, 249, 0.1);
+}
+
+/* Modules */
+#custom-phantom-logo {
+    background: linear-gradient(135deg, #bd93f9, #00fff7);
+    background-size: 200% 200%;
+    animation: gradient-shift 3s ease infinite;
+    color: #0a0a12;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 0 12px;
+    border-radius: 10px;
+    margin: 4px 8px 4px 4px;
+}
+
+#workspaces button {
+    color: #3d3d5c;
+    padding: 0 6px;
+    margin: 4px 2px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+}
+
+#workspaces button.active {
+    color: #00fff7;
+    background: rgba(0, 255, 247, 0.1);
+    border: 1px solid rgba(0, 255, 247, 0.4);
+    animation: pulse-neon 2s infinite;
+}
+
+#workspaces button:hover {
+    color: #bd93f9;
+    background: rgba(189, 147, 249, 0.15);
+    border: 1px solid rgba(189, 147, 249, 0.3);
+}
+
+#window {
+    color: #8b8da3;
+    padding: 0 10px;
+    font-style: italic;
+}
+
+#clock {
+    color: #00fff7;
+    font-weight: bold;
+    padding: 0 14px;
+    text-shadow: 0 0 6px rgba(0, 255, 247, 0.4);
+}
+
+#custom-media {
+    color: #ff79c6;
+    padding: 0 10px;
+}
+
+#cpu {
+    color: #bd93f9;
+    padding: 0 8px;
+}
+
+#memory {
+    color: #ffb86c;
+    padding: 0 8px;
+}
+
+#temperature {
+    color: #50fa7b;
+    padding: 0 8px;
+}
+
+#temperature.critical {
+    color: #ff5555;
+    animation: pulse-neon 0.5s infinite;
+}
+
+#custom-gpu-usage {
+    color: #50fa7b;
+    padding: 0 8px;
+}
+
+#custom-gamemode {
+    font-size: 16px;
+    padding: 0 4px;
+}
+
+#pulseaudio {
+    color: #ff79c6;
+    padding: 0 8px;
+}
+
+#pulseaudio.muted {
+    color: #ff5555;
+}
+
+#network {
+    color: #50fa7b;
+    padding: 0 8px;
+}
+
+#network.disconnected {
+    color: #ff5555;
+}
+
+#bluetooth {
+    color: #bd93f9;
+    padding: 0 6px;
+}
+
+#battery {
+    color: #50fa7b;
+    padding: 0 8px;
+}
+
+#battery.warning {
+    color: #ffb86c;
+}
+
+#battery.critical {
+    color: #ff5555;
+    animation: pulse-neon 0.5s infinite;
+}
+
+#battery.charging {
+    color: #00fff7;
+}
+
+#custom-power-profile {
+    color: #ffb86c;
+    padding: 0 6px;
+    font-size: 11px;
+}
+
+#tray {
+    padding: 0 6px;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#custom-power {
+    color: #ff5555;
+    font-size: 16px;
+    padding: 0 10px;
+    margin-right: 4px;
+}
+
+#custom-power:hover {
+    color: #ff7979;
+    text-shadow: 0 0 8px rgba(255, 85, 85, 0.6);
+}
+
+tooltip {
+    background: rgba(10, 10, 18, 0.95);
+    border: 1px solid rgba(189, 147, 249, 0.5);
+    border-radius: 8px;
+}
+
+tooltip label {
+    color: #f8f8f2;
+    padding: 4px 8px;
+}

@@ -1,0 +1,3 @@
+#!/bin/bash
+# FexAI CLI launcher
+exec python3 /opt/fexai/fexai-engine.py "$@"

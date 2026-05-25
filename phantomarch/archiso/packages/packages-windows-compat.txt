@@ -1,0 +1,70 @@
+# ============================================================
+# PhantomArch V2 — Compatibilidade Windows Completa
+# Wine, Proton, DXVK, MinGW, executáveis Windows
+# ============================================================
+
+# --- Wine & Proton ---
+wine-staging
+wine-gecko
+wine-mono
+winetricks
+lib32-gnutls
+lib32-sdl2
+lib32-libpulse
+lib32-alsa-plugins
+lib32-giflib
+lib32-libpng
+lib32-libjpeg-turbo
+lib32-libldap
+lib32-openal
+lib32-mpg123
+lib32-v4l-utils
+lib32-libxcomposite
+lib32-libxinerama
+lib32-opencl-icd-loader
+lib32-libxslt
+lib32-gst-plugins-base-libs
+
+# --- Compatibility Layers ---
+vkd3d
+lib32-vkd3d
+dxvk-bin
+
+# --- Game Launchers ---
+lutris
+bottles
+steam
+
+# --- MinGW (cross-compilation Windows) ---
+mingw-w64-gcc
+mingw-w64-binutils
+mingw-w64-crt
+mingw-w64-headers
+mingw-w64-winpthreads
+
+# --- .NET / C# ---
+dotnet-sdk
+dotnet-runtime
+aspnet-runtime
+mono
+
+# --- Electron / Tauri ---
+electron
+npm
+nsis
+
+# --- Python executável ---
+python-pyinstaller
+
+# --- Java ---
+jdk-openjdk
+jre-openjdk
+
+# --- Rust (cross-compile Windows) ---
+rustup
+
+# --- Ferramentas ---
+innoextract
+cabextract
+p7zip
+unrar

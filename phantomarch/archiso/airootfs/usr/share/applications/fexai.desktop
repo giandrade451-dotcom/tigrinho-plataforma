@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=FexAI
+Comment=PhantomArch AI Assistant (Offline)
+Exec=kitty -e fexai
+Icon=applications-science
+Terminal=false
+Categories=Utility;Science;
+Keywords=ai;assistant;fexai;chat;code;

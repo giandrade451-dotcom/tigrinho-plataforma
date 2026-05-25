@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Fex Control Center
+Comment=PhantomArch System Control Panel
+Exec=kitty -e fex-control-center
+Icon=preferences-system
+Terminal=false
+Categories=System;Settings;
+Keywords=control;center;performance;gaming;settings;fex;

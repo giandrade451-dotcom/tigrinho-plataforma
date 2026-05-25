@@ -1,0 +1,39 @@
+# ============================================================
+# PhantomArch V2 — Desenvolvimento Android / APK
+# Android Studio, SDK, Flutter, React Native
+# ============================================================
+
+# --- Java (requisito Android) ---
+jdk17-openjdk
+jdk-openjdk
+
+# --- Build Tools ---
+gradle
+kotlin
+
+# --- Flutter ---
+# (instalado via script - flutter-bin no AUR)
+
+# --- React Native deps ---
+nodejs
+npm
+watchman
+
+# --- APK Tools ---
+apktool
+jadx
+zipalign
+
+# --- Emulator deps ---
+qemu-full
+libvirt
+
+# --- ADB & Fastboot ---
+android-tools
+
+# --- Libs necessárias ---
+lib32-gcc-libs
+lib32-glibc
+ncurses5-compat-libs
+lib32-ncurses5-compat-libs
+lib32-zlib

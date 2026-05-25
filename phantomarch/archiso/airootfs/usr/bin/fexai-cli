@@ -1,0 +1,13 @@
+#!/bin/bash
+# FexAI CLI — quick one-shot query
+if [[ -z "$1" ]]; then
+    exec python3 /opt/fexai/fexai-engine.py
+else
+    python3 -c "
+import sys
+sys.path.insert(0, '/opt/fexai')
+from fexai_engine import FexAI
+ai = FexAI()
+print(ai.chat(' '.join(sys.argv[1:])))
+" "$@"
+fi

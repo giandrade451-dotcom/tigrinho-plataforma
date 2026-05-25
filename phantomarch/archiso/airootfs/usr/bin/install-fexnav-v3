@@ -1,0 +1,2 @@
+#!/bin/bash
+exec /usr/share/phantom/scripts/install-fexnav-v3.sh "$@"

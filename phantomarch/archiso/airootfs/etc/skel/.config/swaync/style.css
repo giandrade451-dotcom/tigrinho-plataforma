@@ -1,0 +1,93 @@
+/* PhantomArch V3 — Notification Center */
+
+* {
+    font-family: "Inter", "JetBrainsMono Nerd Font", sans-serif;
+    font-size: 13px;
+}
+
+.notification-row {
+    outline: none;
+}
+
+.notification {
+    background: rgba(10, 10, 18, 0.95);
+    border: 1px solid rgba(189, 147, 249, 0.3);
+    border-radius: 12px;
+    margin: 4px 8px;
+    padding: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.notification-content {
+    color: #f8f8f2;
+    padding: 8px;
+}
+
+.notification-default-action:hover {
+    background: rgba(189, 147, 249, 0.1);
+    border-radius: 10px;
+}
+
+.close-button {
+    background: rgba(255, 85, 85, 0.8);
+    color: #0a0a12;
+    border-radius: 50%;
+    min-width: 20px;
+    min-height: 20px;
+}
+
+.control-center {
+    background: rgba(10, 10, 18, 0.98);
+    border: 1px solid rgba(189, 147, 249, 0.4);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+}
+
+.control-center .notification {
+    background: rgba(26, 26, 46, 0.8);
+}
+
+widget-title {
+    color: #bd93f9;
+    font-weight: bold;
+    font-size: 16px;
+    margin: 8px;
+}
+
+widget-title button {
+    background: rgba(255, 85, 85, 0.7);
+    color: white;
+    border-radius: 8px;
+    padding: 4px 12px;
+}
+
+widget-dnd {
+    color: #f8f8f2;
+    margin: 4px 8px;
+}
+
+widget-buttons-grid {
+    padding: 4px 8px;
+}
+
+widget-buttons-grid > flowbox > flowboxchild > button {
+    background: rgba(189, 147, 249, 0.15);
+    border: 1px solid rgba(189, 147, 249, 0.3);
+    border-radius: 10px;
+    min-width: 48px;
+    min-height: 48px;
+    margin: 4px;
+    font-size: 18px;
+}
+
+widget-buttons-grid > flowbox > flowboxchild > button:hover {
+    background: rgba(189, 147, 249, 0.3);
+    border-color: #bd93f9;
+}
+
+widget-mpris {
+    background: rgba(26, 26, 46, 0.6);
+    border-radius: 12px;
+    margin: 4px 8px;
+    padding: 8px;
+}
