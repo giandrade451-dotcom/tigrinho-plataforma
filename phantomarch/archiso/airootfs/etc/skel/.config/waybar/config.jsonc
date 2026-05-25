@@ -1,0 +1,144 @@
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PhantomArch — Waybar Configuration                         ║
+// ║  Cyberpunk Neon Theme                                       ║
+// ╚══════════════════════════════════════════════════════════════╝
+{
+    "layer": "top",
+    "position": "top",
+    "height": 36,
+    "spacing": 4,
+    "margin-top": 4,
+    "margin-left": 8,
+    "margin-right": 8,
+
+    "modules-left": [
+        "custom/phantom",
+        "hyprland/workspaces",
+        "hyprland/window"
+    ],
+    "modules-center": [
+        "clock"
+    ],
+    "modules-right": [
+        "custom/gamemode",
+        "cpu",
+        "memory",
+        "temperature",
+        "network",
+        "pulseaudio",
+        "battery",
+        "tray",
+        "custom/power"
+    ],
+
+    "custom/phantom": {
+        "format": " 👻 ",
+        "tooltip": "PhantomArch 1.0",
+        "on-click": "wofi --show drun"
+    },
+
+    "hyprland/workspaces": {
+        "format": "{icon}",
+        "format-icons": {
+            "1": "一",
+            "2": "二",
+            "3": "三",
+            "4": "四",
+            "5": "五",
+            "6": "六",
+            "7": "七",
+            "8": "八",
+            "9": "九",
+            "10": "十",
+            "urgent": "",
+            "active": "",
+            "default": ""
+        },
+        "on-scroll-up": "hyprctl dispatch workspace e+1",
+        "on-scroll-down": "hyprctl dispatch workspace e-1",
+        "on-click": "activate"
+    },
+
+    "hyprland/window": {
+        "format": "{}",
+        "max-length": 50,
+        "separate-outputs": true
+    },
+
+    "clock": {
+        "format": "  {:%H:%M}",
+        "format-alt": "  {:%A, %d %B %Y | %H:%M:%S}",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "interval": 1
+    },
+
+    "custom/gamemode": {
+        "format": "{}",
+        "exec": "if gamemoded -s 2>/dev/null | grep -q 'active'; then echo '🎮'; fi",
+        "interval": 5,
+        "tooltip": "GameMode Status"
+    },
+
+    "cpu": {
+        "format": "  {usage}%",
+        "tooltip": true,
+        "interval": 2,
+        "on-click": "kitty -e btop"
+    },
+
+    "memory": {
+        "format": "  {}%",
+        "tooltip": true,
+        "interval": 2,
+        "on-click": "kitty -e btop"
+    },
+
+    "temperature": {
+        "critical-threshold": 80,
+        "format": " {temperatureC}°C",
+        "format-critical": " {temperatureC}°C",
+        "tooltip": true
+    },
+
+    "network": {
+        "format-wifi": "  {signalStrength}%",
+        "format-ethernet": "  {ipaddr}",
+        "format-disconnected": "  Off",
+        "tooltip-format-wifi": "{essid} ({signalStrength}%)\n{ipaddr}/{cidr}",
+        "tooltip-format-ethernet": "{ifname}\n{ipaddr}/{cidr}",
+        "on-click": "nm-connection-editor"
+    },
+
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-muted": "  Mute",
+        "format-icons": {
+            "default": ["", "", ""]
+        },
+        "on-click": "pavucontrol",
+        "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+",
+        "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+    },
+
+    "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon} {capacity}%",
+        "format-charging": " {capacity}%",
+        "format-plugged": " {capacity}%",
+        "format-icons": ["", "", "", "", ""]
+    },
+
+    "tray": {
+        "icon-size": 16,
+        "spacing": 8
+    },
+
+    "custom/power": {
+        "format": " ⏻ ",
+        "on-click": "wlogout",
+        "tooltip": "Power Menu"
+    }
+}

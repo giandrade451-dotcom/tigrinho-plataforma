@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=PhantomArch Welcome
+Comment=Performance checklist and system information
+Exec=kitty -e phantom-welcome
+Icon=utilities-terminal
+Terminal=false
+Categories=System;Utility;
+Keywords=welcome;phantom;performance;check;

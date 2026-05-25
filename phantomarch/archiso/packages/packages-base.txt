@@ -1,0 +1,125 @@
+# ============================================================
+# PhantomArch — Pacotes Base do Sistema
+# ============================================================
+
+# --- Kernel ---
+linux-zen
+linux-zen-headers
+linux-firmware
+linux-firmware-whence
+
+# --- Base System ---
+base
+base-devel
+archlinux-keyring
+pacman
+pacman-contrib
+reflector
+mkinitcpio
+mkinitcpio-nfs-utils
+
+# --- Boot ---
+grub
+efibootmgr
+os-prober
+sbctl
+
+# --- Filesystem ---
+btrfs-progs
+xfsprogs
+ntfs-3g
+dosfstools
+e2fsprogs
+exfatprogs
+f2fs-tools
+
+# --- Networking Core ---
+networkmanager
+network-manager-applet
+nm-connection-editor
+iwd
+wpa_supplicant
+dhcpcd
+inetutils
+bind
+nfs-utils
+openssh
+
+# --- Wireless/BT ---
+bluez
+bluez-utils
+blueman
+
+# --- Hardware ---
+fwupd
+usbutils
+pciutils
+lshw
+dmidecode
+hwinfo
+acpi
+acpid
+thermald
+tlp
+power-profiles-daemon
+
+# --- Utilities ---
+sudo
+which
+man-db
+man-pages
+texinfo
+wget
+curl
+git
+rsync
+unzip
+zip
+p7zip
+unrar
+xdg-utils
+xdg-user-dirs
+polkit
+polkit-gnome
+gvfs
+gvfs-mtp
+gvfs-nfs
+gvfs-smb
+udisks2
+udiskie
+
+# --- Shell ---
+zsh
+zsh-completions
+zsh-autosuggestions
+zsh-syntax-highlighting
+starship
+bat
+eza
+fd
+ripgrep
+fzf
+zoxide
+htop
+btop
+neofetch
+fastfetch
+
+# --- Security ---
+apparmor
+firewalld
+ufw
+gnupg
+pass
+
+# --- Fonts ---
+noto-fonts
+noto-fonts-cjk
+noto-fonts-emoji
+ttf-cascadia-code-nerd
+ttf-firacode-nerd
+ttf-jetbrains-mono-nerd
+ttf-hack-nerd
+ttf-liberation
+ttf-dejavu
+otf-firamono-nerd

@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=Phantom
+Description=PhantomArch Cyberpunk Boot Animation
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/phantom
+ScriptFile=/usr/share/plymouth/themes/phantom/phantom.script

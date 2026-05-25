@@ -1,0 +1,8 @@
+# Chaotic-AUR Mirrorlist
+# https://aur.chaotic.cx
+
+Server = https://cdn-mirror.chaotic.cx/$repo/$arch
+Server = https://us-tx-mirror.chaotic.cx/$repo/$arch
+Server = https://eu-nl-mirror.chaotic.cx/$repo/$arch
+Server = https://eu-de-mirror.chaotic.cx/$repo/$arch
+Server = https://br-sp-mirror.chaotic.cx/$repo/$arch

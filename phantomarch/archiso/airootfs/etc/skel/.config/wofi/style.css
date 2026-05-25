@@ -1,0 +1,63 @@
+/* PhantomArch — Wofi Style (Cyberpunk Neon) */
+
+window {
+    margin: 0px;
+    border: 2px solid rgba(189, 147, 249, 0.6);
+    border-radius: 16px;
+    background-color: rgba(10, 10, 18, 0.95);
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 14px;
+}
+
+#input {
+    margin: 12px;
+    border: 1px solid rgba(0, 255, 247, 0.4);
+    border-radius: 8px;
+    color: #f8f8f2;
+    background-color: rgba(26, 26, 46, 0.9);
+    padding: 8px 16px;
+    font-size: 14px;
+}
+
+#input:focus {
+    border-color: #00fff7;
+    box-shadow: 0 0 8px rgba(0, 255, 247, 0.3);
+}
+
+#inner-box {
+    margin: 4px 12px;
+    border: none;
+    background-color: transparent;
+}
+
+#outer-box {
+    margin: 0px;
+    border: none;
+    background-color: transparent;
+}
+
+#scroll {
+    margin: 0px;
+    border: none;
+}
+
+#text {
+    margin: 4px;
+    color: #f8f8f2;
+}
+
+#entry {
+    padding: 6px 12px;
+    border-radius: 8px;
+    margin: 2px 0px;
+}
+
+#entry:selected {
+    background-color: rgba(189, 147, 249, 0.2);
+    border-left: 3px solid #bd93f9;
+    color: #00fff7;
+}
+
+#entry:hover {
+    background-color: rgba(189, 147, 249, 0.1);
+}

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=PhantomArch Optimizer
+Comment=System tuning and performance optimization
+Exec=kitty -e phantom-optimizer
+Icon=preferences-system-performance
+Terminal=false
+Categories=System;Settings;
+Keywords=optimizer;performance;tuning;gaming;
