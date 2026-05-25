@@ -1,0 +1,13 @@
+NAME="FexOS"
+PRETTY_NAME="FexOS 4.0 Phantom"
+ID=fexos
+ID_LIKE=arch
+BUILD_ID=rolling
+VERSION_ID=4.0
+VERSION="4.0 (Phantom)"
+ANSI_COLOR="38;2;189;147;249"
+HOME_URL="https://fexos.io"
+DOCUMENTATION_URL="https://fexos.io/docs"
+SUPPORT_URL="https://fexos.io/support"
+BUG_REPORT_URL="https://fexos.io/bugs"
+LOGO=fexos

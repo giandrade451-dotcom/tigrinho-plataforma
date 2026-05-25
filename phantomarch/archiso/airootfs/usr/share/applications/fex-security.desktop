@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Fex Security Center
+GenericName=Security Manager
+Comment=FexOS Security — Antivírus, Firewall, Proteção
+Exec=kitty -e fex-security-center
+Icon=security-high
+Terminal=false
+Categories=System;Security;
+Keywords=security;antivirus;firewall;scanner;protection;
