@@ -1,0 +1,180 @@
+// PhantomArch V2 — Waybar Config (Futuristic Modern)
+{
+    "layer": "top",
+    "position": "top",
+    "height": 40,
+    "spacing": 0,
+    "margin-top": 4,
+    "margin-left": 8,
+    "margin-right": 8,
+
+    "modules-left": [
+        "custom/phantom-logo",
+        "hyprland/workspaces",
+        "hyprland/window"
+    ],
+    "modules-center": [
+        "custom/media",
+        "clock"
+    ],
+    "modules-right": [
+        "custom/gpu-usage",
+        "cpu",
+        "memory",
+        "temperature",
+        "custom/gamemode",
+        "pulseaudio",
+        "network",
+        "bluetooth",
+        "battery",
+        "custom/power-profile",
+        "tray",
+        "custom/power"
+    ],
+
+    "custom/phantom-logo": {
+        "format": " ⚡ ",
+        "tooltip": "Fex Control Center",
+        "on-click": "kitty -e fex-control-center"
+    },
+
+    "hyprland/workspaces": {
+        "format": "{icon}",
+        "format-icons": {
+            "1": "󰎤",
+            "2": "󰎧",
+            "3": "󰎪",
+            "4": "󰎭",
+            "5": "󰎱",
+            "6": "󰎳",
+            "7": "󰎶",
+            "8": "󰎹",
+            "9": "󰎼",
+            "10": "󰽽",
+            "active": "󰮯",
+            "default": "󰊠"
+        },
+        "persistent-workspaces": {
+            "*": 5
+        }
+    },
+
+    "hyprland/window": {
+        "format": "{}",
+        "max-length": 40,
+        "rewrite": {
+            "(.*) — Firefox": "🌐 $1",
+            "(.*) - FexCode": "💻 $1",
+            "kitty": "⌨️ Terminal",
+            "Steam": "🎮 Steam",
+            "(.*) - Godot": "🎮 $1"
+        }
+    },
+
+    "custom/media": {
+        "format": "♪ {}",
+        "return-type": "json",
+        "max-length": 30,
+        "exec": "playerctl metadata --format '{\"text\": \"{{artist}} - {{title}}\", \"tooltip\": \"{{playerName}}: {{title}}\", \"class\": \"{{status}}\"}' -F 2>/dev/null",
+        "on-click": "playerctl play-pause"
+    },
+
+    "clock": {
+        "format": "  {:%H:%M}",
+        "format-alt": "  {:%A, %d %B %Y — %H:%M:%S}",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt>{calendar}</tt>",
+        "interval": 1
+    },
+
+    "custom/gpu-usage": {
+        "exec": "nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits 2>/dev/null || cat /sys/class/drm/card0/device/gpu_busy_percent 2>/dev/null || echo '?'",
+        "format": "󰢮 {}%",
+        "interval": 5,
+        "tooltip": true,
+        "tooltip-format": "GPU Usage"
+    },
+
+    "cpu": {
+        "format": " {usage}%",
+        "interval": 2,
+        "on-click": "kitty -e htop"
+    },
+
+    "memory": {
+        "format": " {percentage}%",
+        "interval": 5,
+        "tooltip-format": "{used:0.1f}GB / {total:0.1f}GB"
+    },
+
+    "temperature": {
+        "hwmon-path-abs": "/sys/class/thermal/thermal_zone0/temp",
+        "critical-threshold": 85,
+        "format": " {temperatureC}°",
+        "format-critical": " {temperatureC}°"
+    },
+
+    "custom/gamemode": {
+        "exec": "gamemoded -s 2>/dev/null && echo '🎮' || echo ''",
+        "interval": 5,
+        "format": "{}",
+        "tooltip": "GameMode",
+        "on-click": "phantom-gamemode-toggle"
+    },
+
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-muted": "󰝟 MUDO",
+        "format-icons": {
+            "default": ["󰕿", "󰖀", "󰕾"]
+        },
+        "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+        "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%+",
+        "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%-"
+    },
+
+    "network": {
+        "format-wifi": "󰖩 {signalStrength}%",
+        "format-ethernet": "󰈁",
+        "format-disconnected": "󰖪",
+        "tooltip-format": "{ifname}: {ipaddr}/{cidr}\n⬆️ {bandwidthUpBytes} ⬇️ {bandwidthDownBytes}",
+        "on-click": "nm-connection-editor"
+    },
+
+    "bluetooth": {
+        "format": "󰂯",
+        "format-disabled": "",
+        "format-connected": "󰂱 {num_connections}",
+        "tooltip-format": "{controller_alias}\n{num_connections} connected",
+        "on-click": "blueman-manager"
+    },
+
+    "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon} {capacity}%",
+        "format-charging": "󰂄 {capacity}%",
+        "format-plugged": "󰚥 {capacity}%",
+        "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
+    },
+
+    "custom/power-profile": {
+        "exec": "powerprofilesctl get 2>/dev/null || echo 'N/A'",
+        "format": "⚡{}",
+        "interval": 30,
+        "on-click": "powerprofilesctl set performance",
+        "on-click-right": "powerprofilesctl set power-saver"
+    },
+
+    "tray": {
+        "spacing": 8,
+        "icon-size": 16
+    },
+
+    "custom/power": {
+        "format": "⏻",
+        "tooltip": "Power Menu",
+        "on-click": "wlogout"
+    }
+}

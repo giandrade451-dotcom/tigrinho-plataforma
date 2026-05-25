@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Engines Launcher
+Comment=Game Development Engines Launcher
+Exec=kitty -e phantom-engines-launcher
+Icon=applications-games
+Terminal=false
+Categories=Development;Game;
+Keywords=godot;blender;unity;unreal;engine;gamedev;

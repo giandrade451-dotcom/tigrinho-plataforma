@@ -1,0 +1,3 @@
+#!/bin/bash
+# FexControlCenter launcher
+exec /usr/share/phantom/scripts/fex-control-center.sh "$@"

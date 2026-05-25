@@ -1,0 +1,62 @@
+# FexCode — Extensões Pré-instaladas
+# Instaladas automaticamente no primeiro boot
+
+# --- Linguagens ---
+ms-python.python
+ms-python.vscode-pylance
+rust-lang.rust-analyzer
+golang.go
+ms-vscode.cpptools
+rebornix.ruby
+dart-code.dart-code
+dart-code.flutter
+ms-dotnettools.csharp
+ms-dotnettools.dotnet-runtime
+vscjava.vscode-java-pack
+zig-language.zig
+sumneko.lua
+tamasfe.even-better-toml
+redhat.vscode-yaml
+bradlc.vscode-tailwindcss
+
+# --- Web Dev ---
+dbaeumer.vscode-eslint
+esbenp.prettier-vscode
+formulahendry.auto-rename-tag
+formulahendry.auto-close-tag
+christian-kohler.path-intellisense
+naumovs.color-highlight
+
+# --- Git ---
+eamodio.gitlens
+mhutchie.git-graph
+
+# --- Containers ---
+ms-azuretools.vscode-docker
+ms-kubernetes-tools.vscode-kubernetes-tools
+
+# --- Tema ---
+# (Phantom Neon theme será instalado localmente)
+
+# --- Icons ---
+pkief.material-icon-theme
+
+# --- Produtividade ---
+usernamehw.errorlens
+streetsidesoftware.code-spell-checker
+gruntfuggly.todo-tree
+wayou.vscode-todo-highlight
+
+# --- Game Dev ---
+geequlim.godot-tools
+# Unity: será instalado via Unity Hub
+
+# --- AI (FexAI) ---
+# Extensão FexAI local
+
+# --- Markdown ---
+yzhang.markdown-all-in-one
+bierner.markdown-preview-github-styles
+
+# --- Remote ---
+ms-vscode-remote.remote-containers

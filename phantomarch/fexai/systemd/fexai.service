@@ -1,0 +1,15 @@
+[Unit]
+Description=FexAI — PhantomArch AI Assistant Server
+After=network.target ollama.service
+Wants=ollama.service
+
+[Service]
+Type=simple
+User=%i
+ExecStart=/usr/bin/python3 /opt/fexai/fexai-server.py
+Restart=on-failure
+RestartSec=5
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=default.target

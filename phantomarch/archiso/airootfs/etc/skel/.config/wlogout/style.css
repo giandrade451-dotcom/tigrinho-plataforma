@@ -1,0 +1,49 @@
+/* PhantomArch V2 — wlogout Power Menu */
+
+window {
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 14px;
+    color: #f8f8f2;
+    background-color: rgba(10, 10, 18, 0.9);
+}
+
+button {
+    background-color: rgba(26, 26, 46, 0.8);
+    border: 2px solid rgba(189, 147, 249, 0.3);
+    border-radius: 16px;
+    margin: 10px;
+    padding: 20px;
+    color: #f8f8f2;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background-color: rgba(189, 147, 249, 0.2);
+    border-color: #bd93f9;
+    box-shadow: 0 0 20px rgba(189, 147, 249, 0.3);
+}
+
+button:focus {
+    background-color: rgba(0, 255, 247, 0.1);
+    border-color: #00fff7;
+    box-shadow: 0 0 20px rgba(0, 255, 247, 0.3);
+}
+
+#lock {
+    background-image: image(url("/usr/share/wlogout/icons/lock.png"));
+}
+#logout {
+    background-image: image(url("/usr/share/wlogout/icons/logout.png"));
+}
+#suspend {
+    background-image: image(url("/usr/share/wlogout/icons/suspend.png"));
+}
+#hibernate {
+    background-image: image(url("/usr/share/wlogout/icons/hibernate.png"));
+}
+#shutdown {
+    background-image: image(url("/usr/share/wlogout/icons/shutdown.png"));
+}
+#reboot {
+    background-image: image(url("/usr/share/wlogout/icons/reboot.png"));
+}

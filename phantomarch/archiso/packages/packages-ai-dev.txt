@@ -1,0 +1,41 @@
+# ============================================================
+# PhantomArch V2 — IA & Machine Learning
+# Frameworks offline para FexAI
+# ============================================================
+
+# --- Python ML Stack ---
+python
+python-pip
+python-numpy
+python-scipy
+python-pandas
+python-matplotlib
+python-scikit-learn
+python-pillow
+
+# --- PyTorch (CPU) ---
+python-pytorch
+python-torchvision
+
+# --- NLP / Transformers ---
+python-transformers
+python-tokenizers
+python-sentencepiece
+
+# --- Utilities ---
+python-tqdm
+python-requests
+python-flask
+python-fastapi
+uvicorn
+python-websockets
+
+# --- LLM local ---
+ollama
+
+# --- Database para IA ---
+sqlite
+python-sqlalchemy
+
+# --- ONNX Runtime ---
+python-onnxruntime

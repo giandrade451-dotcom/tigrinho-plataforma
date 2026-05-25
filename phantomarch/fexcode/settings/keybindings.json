@@ -1,0 +1,38 @@
+[
+  {
+    "key": "ctrl+shift+a",
+    "command": "fexai.openChat",
+    "when": "editorFocus"
+  },
+  {
+    "key": "ctrl+shift+i",
+    "command": "fexai.inlineComplete",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+shift+e",
+    "command": "fexai.explainSelection",
+    "when": "editorHasSelection"
+  },
+  {
+    "key": "ctrl+shift+f",
+    "command": "fexai.fixCode",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+shift+t",
+    "command": "workbench.action.terminal.toggleTerminal"
+  },
+  {
+    "key": "ctrl+shift+b",
+    "command": "workbench.action.tasks.build"
+  },
+  {
+    "key": "ctrl+shift+d",
+    "command": "workbench.action.debug.start"
+  },
+  {
+    "key": "ctrl+k ctrl+t",
+    "command": "workbench.action.selectTheme"
+  }
+]
