@@ -1,0 +1,166 @@
+/* ╔══════════════════════════════════════════════════════════════╗
+ * ║  PhantomArch — Waybar Style                                  ║
+ * ║  Cyberpunk Neon Dark Theme                                   ║
+ * ╚══════════════════════════════════════════════════════════════╝ */
+
+@define-color bg-primary     rgba(10, 10, 18, 0.92);
+@define-color bg-secondary   rgba(26, 26, 46, 0.95);
+@define-color border-color   rgba(189, 147, 249, 0.4);
+@define-color neon-purple     #bd93f9;
+@define-color neon-cyan       #00fff7;
+@define-color neon-magenta    #ff79c6;
+@define-color neon-green      #50fa7b;
+@define-color neon-orange     #ffb86c;
+@define-color neon-red        #ff5555;
+@define-color text-primary    #f8f8f2;
+@define-color text-secondary  #8b8da3;
+
+* {
+    font-family: "JetBrainsMono Nerd Font", "CaskaydiaCove Nerd Font", monospace;
+    font-size: 13px;
+    border: none;
+    border-radius: 0;
+    min-height: 0;
+}
+
+window#waybar {
+    background: @bg-primary;
+    border-bottom: 2px solid @border-color;
+    border-radius: 12px;
+    color: @text-primary;
+}
+
+tooltip {
+    background: @bg-secondary;
+    border: 1px solid @neon-purple;
+    border-radius: 8px;
+    color: @text-primary;
+}
+
+/* Module styling */
+#custom-phantom {
+    color: @neon-purple;
+    font-size: 16px;
+    padding: 0 12px;
+    text-shadow: 0 0 8px @neon-purple;
+}
+
+#workspaces button {
+    padding: 0 6px;
+    color: @text-secondary;
+    transition: all 0.2s ease;
+    border-radius: 6px;
+    margin: 3px 2px;
+}
+
+#workspaces button.active {
+    color: @neon-cyan;
+    background: rgba(0, 255, 247, 0.1);
+    border-bottom: 2px solid @neon-cyan;
+    text-shadow: 0 0 6px @neon-cyan;
+}
+
+#workspaces button:hover {
+    color: @neon-purple;
+    background: rgba(189, 147, 249, 0.1);
+}
+
+#workspaces button.urgent {
+    color: @neon-red;
+    animation: pulse 1s infinite;
+}
+
+#window {
+    color: @text-secondary;
+    padding: 0 12px;
+    font-style: italic;
+}
+
+#clock {
+    color: @neon-cyan;
+    font-weight: bold;
+    padding: 0 12px;
+    text-shadow: 0 0 6px @neon-cyan;
+}
+
+#custom-gamemode {
+    color: @neon-green;
+    padding: 0 8px;
+    text-shadow: 0 0 6px @neon-green;
+}
+
+#cpu {
+    color: @neon-purple;
+    padding: 0 8px;
+}
+
+#memory {
+    color: @neon-magenta;
+    padding: 0 8px;
+}
+
+#temperature {
+    color: @neon-orange;
+    padding: 0 8px;
+}
+
+#temperature.critical {
+    color: @neon-red;
+    animation: pulse 0.5s infinite;
+}
+
+#network {
+    color: @neon-cyan;
+    padding: 0 8px;
+}
+
+#network.disconnected {
+    color: @neon-red;
+}
+
+#pulseaudio {
+    color: @neon-green;
+    padding: 0 8px;
+}
+
+#pulseaudio.muted {
+    color: @text-secondary;
+}
+
+#battery {
+    color: @neon-green;
+    padding: 0 8px;
+}
+
+#battery.warning {
+    color: @neon-orange;
+}
+
+#battery.critical {
+    color: @neon-red;
+    animation: pulse 1s infinite;
+}
+
+#tray {
+    padding: 0 8px;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#custom-power {
+    color: @neon-red;
+    padding: 0 12px;
+    font-size: 14px;
+}
+
+#custom-power:hover {
+    text-shadow: 0 0 8px @neon-red;
+}
+
+/* Animations */
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}

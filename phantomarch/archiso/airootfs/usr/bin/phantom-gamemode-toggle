@@ -1,0 +1,9 @@
+#!/bin/bash
+# PhantomArch GameMode Toggle
+if gamemoded -s 2>/dev/null | grep -q "active"; then
+    gamemoded -r
+    notify-send "PhantomArch" "GameMode DESATIVADO" -u normal -i input-gaming
+else
+    gamemoded -d
+    notify-send "PhantomArch" "GameMode ATIVADO — Performance Maxima!" -u normal -i input-gaming
+fi

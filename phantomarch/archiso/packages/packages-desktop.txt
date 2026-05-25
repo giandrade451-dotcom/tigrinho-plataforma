@@ -1,0 +1,120 @@
+# ============================================================
+# PhantomArch — Pacotes Desktop (Hyprland + Wayland)
+# ============================================================
+
+# --- Wayland Core ---
+wayland
+wayland-protocols
+xorg-xwayland
+qt5-wayland
+qt6-wayland
+
+# --- Hyprland ---
+hyprland
+hyprpaper
+hyprlock
+hypridle
+hyprpicker
+xdg-desktop-portal-hyprland
+
+# --- Bar & Launcher ---
+waybar
+wofi
+rofi-wayland
+
+# --- Notifications ---
+dunst
+libnotify
+
+# --- Terminal ---
+kitty
+alacritty
+
+# --- File Manager ---
+thunar
+thunar-volman
+thunar-archive-plugin
+tumbler
+file-roller
+
+# --- Screenshot/Screen ---
+grim
+slurp
+swappy
+wl-clipboard
+cliphist
+wf-recorder
+
+# --- Theme & Appearance ---
+nwg-look
+qt5ct
+qt6ct
+kvantum
+kvantum-qt5
+papirus-icon-theme
+arc-gtk-theme
+
+# --- Display Manager ---
+sddm
+sddm-kcm
+
+# --- Authentication ---
+polkit-gnome
+gnome-keyring
+seahorse
+
+# --- System Tray ---
+network-manager-applet
+blueman
+pavucontrol
+
+# --- Plymouth ---
+plymouth
+
+# --- Multimedia ---
+pipewire
+wireplumber
+easyeffects
+playerctl
+mpv
+imv
+
+# --- PDF/Documents ---
+evince
+libreoffice-fresh
+
+# --- Browser ---
+firefox
+chromium
+
+# --- Communication ---
+discord
+
+# --- Archiving ---
+xarchiver
+
+# --- Calculator ---
+qalculate-gtk
+
+# --- XDG ---
+xdg-desktop-portal
+xdg-desktop-portal-gtk
+
+# --- Codecs ---
+ffmpeg
+gstreamer
+gst-plugins-base
+gst-plugins-good
+gst-plugins-bad
+gst-plugins-ugly
+gst-libav
+x264
+x265
+libde265
+libvpx
+dav1d
+svt-av1
+aom
+
+# --- Installer ---
+calamares

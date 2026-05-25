@@ -1,0 +1,3 @@
+#!/bin/bash
+# PhantomArch Welcome — wrapper
+exec /etc/phantom/phantom-welcome.sh "$@"

@@ -1,0 +1,70 @@
+# ============================================================
+# PhantomArch — Pacotes AUR (via Chaotic-AUR ou build manual)
+# ============================================================
+# Nota: Estes pacotes devem estar disponíveis via chaotic-aur
+# ou ser compilados durante o build da ISO com yay/paru
+
+# --- Kernels ---
+linux-xanmod
+linux-xanmod-headers
+linux-xanmod-edge
+linux-xanmod-edge-headers
+
+# --- Gaming ---
+proton-ge-custom-bin
+vkbasalt
+reshade-shaders-git
+replay-sorcery-git
+dxvk-bin
+mangohud-git
+gamescope-git
+minigalaxy
+
+# --- Development ---
+vscodium-bin
+zed-editor-bin
+jetbrains-toolbox
+unityhub
+pyenv
+nvm
+devbox-bin
+
+# --- System ---
+paru-bin
+yay-bin
+earlyoom
+hardened_malloc-git
+ananicy-cpp
+cachyos-ananicy-rules-git
+auto-cpufreq
+
+# --- Desktop ---
+hyprshot
+swww
+wlogout
+nwg-drawer
+sddm-theme-sugar-candy-git
+plymouth-theme-arch-charge-big
+
+# --- Fonts ---
+ttf-ms-fonts
+ttf-vista-fonts
+
+# --- Theming ---
+catppuccin-gtk-theme-mocha
+catppuccin-cursors-mocha
+tela-circle-icon-theme-purple-git
+
+# --- GPU ---
+nvidia-tweaks
+envycontrol
+
+# --- Apps ---
+webapp-manager
+timeshift
+btrfs-assistant
+snapper-gui-git
+
+# --- Looking Glass (GPU Passthrough) ---
+looking-glass-client-git
+looking-glass-module-dkms-git

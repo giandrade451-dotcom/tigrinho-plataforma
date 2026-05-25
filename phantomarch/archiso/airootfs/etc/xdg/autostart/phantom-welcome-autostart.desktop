@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=PhantomArch Welcome
+Comment=Performance checklist and system info
+Exec=kitty -e phantom-welcome
+Icon=utilities-terminal
+Terminal=false
+Categories=System;
+StartupNotify=false
+X-GNOME-Autostart-Phase=Application
+OnlyShowIn=Hyprland;
