@@ -1,0 +1,15 @@
+[Unit]
+Description=Fex Antivirus Real-Time Monitor
+After=network.target
+Wants=clamav-freshclam.service
+
+[Service]
+Type=simple
+ExecStart=/usr/share/phantom/scripts/fex-antivirus-monitor.sh
+Restart=on-failure
+RestartSec=10
+Environment=DISPLAY=:0
+Environment=WAYLAND_DISPLAY=wayland-0
+
+[Install]
+WantedBy=default.target

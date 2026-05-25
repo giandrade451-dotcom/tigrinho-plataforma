@@ -1,0 +1,68 @@
+# FexOS V4 — Security & Protection Packages
+
+# === Antivirus ===
+clamav
+clamtk
+
+# === YARA ===
+yara
+
+# === Firewall ===
+ufw
+gufw
+
+# === AppArmor ===
+apparmor
+apparmor-utils
+
+# === File Monitoring ===
+inotify-tools
+audit
+aide
+
+# === System Integrity ===
+tripwire
+
+# === Backup/Restore ===
+timeshift
+snapper
+grub-btrfs
+
+# === Encryption ===
+gnupg
+veracrypt
+
+# === Network Security ===
+nmap
+tcpdump
+wireshark-cli
+fail2ban
+
+# === Sandboxing ===
+firejail
+bubblewrap
+
+# === Rootkit Detection ===
+rkhunter
+chkrootkit
+
+# === Secure Delete ===
+secure-delete
+
+# === Password Security ===
+pass
+keepassxc
+
+# === Process Security ===
+psacct
+
+# === Disk Security ===
+cryptsetup
+
+# === Stress Testing ===
+stress-ng
+
+# === Desktop Notifications ===
+libnotify
+zenity
+kdialog
