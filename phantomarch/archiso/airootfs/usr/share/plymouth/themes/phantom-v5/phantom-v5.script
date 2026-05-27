@@ -64,10 +64,10 @@ fun display_password_callback(prompt, bullets) {
 
     bullet_str = "";
     for (i = 0; i < bullets; i++) bullet_str += "●";
-    bullets.image = Image.Text(bullet_str, 0.74, 0.58, 0.98, 1, "Inter 18");
-    bullets.sprite = Sprite(bullets.image);
-    bullets.sprite.SetX(Window.GetWidth() / 2 - bullets.image.GetWidth() / 2);
-    bullets.sprite.SetY(Window.GetHeight() / 2 + 190);
+    bullet_img = Image.Text(bullet_str, 0.74, 0.58, 0.98, 1, "Inter 18");
+    bullet_spr = Sprite(bullet_img);
+    bullet_spr.SetX(Window.GetWidth() / 2 - bullet_img.GetWidth() / 2);
+    bullet_spr.SetY(Window.GetHeight() / 2 + 190);
 }
 
 Plymouth.SetDisplayPasswordFunction(display_password_callback);

@@ -63,7 +63,7 @@ step_language() {
         *) LOCALE="pt_BR.UTF-8"; LANG_NAME="Português (Brasil)" ;;
     esac
 
-    echo "$LOCALE" > /etc/locale.conf 2>/dev/null || true
+    echo "LANG=$LOCALE" > /etc/locale.conf 2>/dev/null || true
     localectl set-locale "LANG=$LOCALE" 2>/dev/null || true
     echo -e "  ${GREEN}✓ Idioma: $LANG_NAME${NC}"
     echo ""
@@ -225,20 +225,20 @@ step_account() {
         USERNAME="phantom"
     fi
 
-    # Password
-    echo -ne "  ${BOLD}Senha:${NC} "
-    read -rs PASSWORD
-    echo ""
-    echo -ne "  ${BOLD}Confirmar senha:${NC} "
-    read -rs PASSWORD2
-    echo ""
-
-    if [[ "$PASSWORD" != "$PASSWORD2" ]]; then
-        echo -e "  ${RED}Senhas não coincidem! Tente novamente.${NC}"
+    # Password (loop until match)
+    while true; do
         echo -ne "  ${BOLD}Senha:${NC} "
         read -rs PASSWORD
         echo ""
-    fi
+        echo -ne "  ${BOLD}Confirmar senha:${NC} "
+        read -rs PASSWORD2
+        echo ""
+
+        if [[ "$PASSWORD" == "$PASSWORD2" ]]; then
+            break
+        fi
+        echo -e "  ${RED}Senhas não coincidem! Tente novamente.${NC}"
+    done
 
     # Create system user
     echo ""
