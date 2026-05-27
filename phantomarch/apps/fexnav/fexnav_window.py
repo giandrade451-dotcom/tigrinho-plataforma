@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """
-FexNav Window — GTK4 + WebKitGTK browser window.
-Native performance, no Electron overhead.
+FexNav Window — GTK4 + WebKitGTK browser.
+100% native, zero Electron, zero web-tech UI.
+The browser chrome and start page are all native GTK widgets.
 """
 
 import sys
@@ -13,242 +14,323 @@ try:
     gi.require_version("Gtk", "4.0")
     gi.require_version("Adw", "1")
     gi.require_version("WebKit", "6.0")
-    from gi.repository import Gtk, Adw, WebKit, GLib, Gio, Gdk
+    from gi.repository import Gtk, Adw, WebKit, GLib, Gio, Gdk, Pango
     HAS_GTK = True
 except (ImportError, ValueError):
     HAS_GTK = False
+    print("[FexNav] GTK4 + WebKitGTK necessário. Instale: gtk4 libadwaita webkit2gtk-5.0")
+    sys.exit(1)
 
-if HAS_GTK:
-    from fexnav import load_config, save_config, load_bookmarks, add_history, FEXNAV_DIR
+FEXNAV_DIR = Path.home() / ".fexnav"
+CONFIG_FILE = FEXNAV_DIR / "config.json"
+BOOKMARKS_FILE = FEXNAV_DIR / "bookmarks.json"
+HISTORY_FILE = FEXNAV_DIR / "history.json"
 
-    class FexNavApplication(Adw.Application):
-        def __init__(self, config=None, start_url=None):
-            super().__init__(application_id="io.fexos.fexnav",
-                           flags=Gio.ApplicationFlags.HANDLES_OPEN)
-            self.config = config or load_config()
-            self.start_url = start_url
-            self.tabs = []
+DEFAULT_BOOKMARKS = [
+    {"name": "Google", "url": "https://www.google.com"},
+    {"name": "YouTube", "url": "https://www.youtube.com"},
+    {"name": "GitHub", "url": "https://github.com"},
+    {"name": "Spotify", "url": "https://open.spotify.com"},
+    {"name": "WhatsApp", "url": "https://web.whatsapp.com"},
+    {"name": "Discord", "url": "https://discord.com/app"},
+    {"name": "Steam", "url": "https://store.steampowered.com"},
+    {"name": "Twitch", "url": "https://www.twitch.tv"},
+]
 
-        def do_activate(self):
-            win = FexNavWindow(application=self, config=self.config)
-            win.present()
-            url = self.start_url or self.config.get("homepage", "fexnav://home")
-            if url == "fexnav://home":
-                win.load_home()
+
+def ensure_dirs():
+    FEXNAV_DIR.mkdir(parents=True, exist_ok=True)
+
+
+def load_config():
+    if CONFIG_FILE.exists():
+        return json.loads(CONFIG_FILE.read_text())
+    cfg = {
+        "homepage": "fexnav://home",
+        "search_engine": "https://www.google.com/search?q=",
+        "hardware_acceleration": True,
+        "smooth_scrolling": True,
+    }
+    ensure_dirs()
+    CONFIG_FILE.write_text(json.dumps(cfg, indent=2))
+    return cfg
+
+
+def load_bookmarks():
+    if BOOKMARKS_FILE.exists():
+        return json.loads(BOOKMARKS_FILE.read_text())
+    ensure_dirs()
+    BOOKMARKS_FILE.write_text(json.dumps(DEFAULT_BOOKMARKS, indent=2))
+    return DEFAULT_BOOKMARKS
+
+
+def add_history(url, title):
+    ensure_dirs()
+    history = []
+    if HISTORY_FILE.exists():
+        try:
+            history = json.loads(HISTORY_FILE.read_text())
+        except Exception:
+            history = []
+    from datetime import datetime
+    history.insert(0, {"url": url, "title": title, "time": datetime.now().isoformat()})
+    history = history[:500]
+    HISTORY_FILE.write_text(json.dumps(history, indent=2))
+
+
+class FexNavStartPage(Gtk.Box):
+    """Native GTK4 start page — no HTML, no web technologies."""
+
+    def __init__(self, navigate_callback):
+        super().__init__(orientation=Gtk.Orientation.VERTICAL)
+        self.navigate = navigate_callback
+        self.set_halign(Gtk.Align.CENTER)
+        self.set_valign(Gtk.Align.CENTER)
+        self.set_spacing(24)
+        self.set_margin_top(80)
+        self.set_margin_bottom(80)
+
+        # Logo
+        logo = Gtk.Label(label="FexNav")
+        logo.add_css_class("title-1")
+        logo.set_markup("<span size='xx-large' weight='bold' foreground='#a78bfa'>FexNav</span>")
+        self.append(logo)
+
+        # Subtitle
+        sub = Gtk.Label(label="Navegador oficial do FexOS")
+        sub.add_css_class("dim-label")
+        self.append(sub)
+
+        # Search entry
+        self.search_entry = Gtk.Entry()
+        self.search_entry.set_placeholder_text("Pesquisar na web...")
+        self.search_entry.set_size_request(420, 44)
+        self.search_entry.add_css_class("search-entry")
+        self.search_entry.connect("activate", self.on_search)
+        self.append(self.search_entry)
+
+        # Bookmarks grid
+        bookmarks = load_bookmarks()
+        grid = Gtk.FlowBox()
+        grid.set_max_children_per_line(4)
+        grid.set_min_children_per_line(4)
+        grid.set_column_spacing(12)
+        grid.set_row_spacing(12)
+        grid.set_selection_mode(Gtk.SelectionMode.NONE)
+        grid.set_homogeneous(True)
+
+        for bm in bookmarks[:8]:
+            btn = Gtk.Button()
+            btn.set_size_request(100, 80)
+            btn.add_css_class("flat")
+            btn.add_css_class("bookmark-btn")
+
+            box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
+            box.set_halign(Gtk.Align.CENTER)
+            box.set_valign(Gtk.Align.CENTER)
+
+            # Icon (first letter in circle)
+            icon_label = Gtk.Label(label=bm["name"][0].upper())
+            icon_label.add_css_class("title-3")
+            box.append(icon_label)
+
+            name_label = Gtk.Label(label=bm["name"])
+            name_label.add_css_class("caption")
+            name_label.set_ellipsize(Pango.EllipsizeMode.END)
+            box.append(name_label)
+
+            btn.set_child(box)
+            btn.connect("clicked", lambda b, url=bm["url"]: self.navigate(url))
+            grid.append(btn)
+
+        self.append(grid)
+
+    def on_search(self, entry):
+        text = entry.get_text()
+        if text:
+            config = load_config()
+            if "." in text and " " not in text:
+                self.navigate(f"https://{text}")
             else:
-                win.navigate(url)
+                self.navigate(f"{config['search_engine']}{text}")
 
-    class FexNavWindow(Adw.ApplicationWindow):
-        def __init__(self, config=None, **kwargs):
-            super().__init__(**kwargs)
-            self.config = config or load_config()
-            self.set_title("FexNav")
-            self.set_default_size(1280, 800)
 
-            # Main layout
-            box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
-            self.set_content(box)
+class FexNavWindow(Adw.ApplicationWindow):
+    """Main browser window — native GTK4 chrome."""
 
-            # Header/toolbar
-            header = Adw.HeaderBar()
-            header.set_show_end_title_buttons(True)
+    def __init__(self, config=None, **kwargs):
+        super().__init__(**kwargs)
+        self.config = config or load_config()
+        self.set_title("FexNav")
+        self.set_default_size(1280, 800)
+        self.showing_startpage = True
 
-            # Navigation buttons
-            nav_box = Gtk.Box(spacing=4)
-            self.back_btn = Gtk.Button(icon_name="go-previous-symbolic")
-            self.back_btn.connect("clicked", self.go_back)
-            nav_box.append(self.back_btn)
+        # Apply custom CSS
+        css = Gtk.CssProvider()
+        css.load_from_string("""
+            .search-entry { border-radius: 12px; padding: 8px; }
+            .bookmark-btn { border-radius: 12px; padding: 12px; min-width: 90px; }
+        """)
+        Gtk.StyleContext.add_provider_for_display(
+            Gdk.Display.get_default(), css,
+            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
-            self.forward_btn = Gtk.Button(icon_name="go-next-symbolic")
-            self.forward_btn.connect("clicked", self.go_forward)
-            nav_box.append(self.forward_btn)
+        # Main box
+        box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        self.set_content(box)
 
-            self.refresh_btn = Gtk.Button(icon_name="view-refresh-symbolic")
-            self.refresh_btn.connect("clicked", self.refresh)
-            nav_box.append(self.refresh_btn)
+        # Header bar
+        header = Adw.HeaderBar()
+        header.set_show_end_title_buttons(True)
+        header.set_show_start_title_buttons(True)
 
-            header.pack_start(nav_box)
+        # Navigation buttons
+        nav_box = Gtk.Box(spacing=2)
+        self.back_btn = Gtk.Button(icon_name="go-previous-symbolic")
+        self.back_btn.set_tooltip_text("Voltar")
+        self.back_btn.connect("clicked", self.go_back)
+        self.back_btn.set_sensitive(False)
+        nav_box.append(self.back_btn)
 
-            # URL bar
-            self.url_entry = Gtk.Entry()
-            self.url_entry.set_hexpand(True)
-            self.url_entry.set_placeholder_text("Pesquisar ou digitar URL...")
-            self.url_entry.connect("activate", self.on_url_activate)
-            header.set_title_widget(self.url_entry)
+        self.fwd_btn = Gtk.Button(icon_name="go-next-symbolic")
+        self.fwd_btn.set_tooltip_text("Avançar")
+        self.fwd_btn.connect("clicked", self.go_forward)
+        self.fwd_btn.set_sensitive(False)
+        nav_box.append(self.fwd_btn)
 
-            # Menu button
-            menu_btn = Gtk.MenuButton(icon_name="open-menu-symbolic")
-            header.pack_end(menu_btn)
+        self.refresh_btn = Gtk.Button(icon_name="view-refresh-symbolic")
+        self.refresh_btn.set_tooltip_text("Recarregar")
+        self.refresh_btn.connect("clicked", self.refresh)
+        nav_box.append(self.refresh_btn)
 
-            box.append(header)
+        home_btn = Gtk.Button(icon_name="go-home-symbolic")
+        home_btn.set_tooltip_text("Página inicial")
+        home_btn.connect("clicked", lambda b: self.show_start_page())
+        nav_box.append(home_btn)
 
-            # WebView
-            web_settings = WebKit.Settings()
-            web_settings.set_enable_javascript(True)
-            web_settings.set_enable_smooth_scrolling(
-                self.config.get("smooth_scrolling", True))
-            web_settings.set_hardware_acceleration_policy(
-                WebKit.HardwareAccelerationPolicy.ALWAYS if
-                self.config.get("hardware_acceleration", True) else
-                WebKit.HardwareAccelerationPolicy.NEVER)
-            web_settings.set_user_agent_with_application_details(
-                "FexNav", "6.0")
+        header.pack_start(nav_box)
 
-            self.webview = WebKit.WebView()
-            self.webview.set_settings(web_settings)
-            self.webview.set_vexpand(True)
-            self.webview.set_hexpand(True)
-            self.webview.connect("notify::title", self.on_title_changed)
-            self.webview.connect("notify::uri", self.on_uri_changed)
-            self.webview.connect("load-changed", self.on_load_changed)
+        # URL entry
+        self.url_entry = Gtk.Entry()
+        self.url_entry.set_hexpand(True)
+        self.url_entry.set_placeholder_text("Pesquisar ou digitar URL...")
+        self.url_entry.connect("activate", self.on_url_activate)
+        header.set_title_widget(self.url_entry)
 
-            box.append(self.webview)
+        # Menu
+        menu_btn = Gtk.MenuButton(icon_name="open-menu-symbolic")
+        header.pack_end(menu_btn)
 
-            # Status bar
-            self.status = Gtk.Label(label="Pronto")
-            self.status.set_halign(Gtk.Align.START)
-            self.status.add_css_class("dim-label")
-            box.append(self.status)
+        box.append(header)
 
-        def navigate(self, url):
-            if not url.startswith(("http://", "https://", "file://", "fexnav://")):
-                if "." in url and " " not in url:
-                    url = "https://" + url
-                else:
-                    search = self.config.get("search_engine",
-                                            "https://www.google.com/search?q=")
-                    url = search + url
-            self.webview.load_uri(url)
+        # Stack for start page vs webview
+        self.stack = Gtk.Stack()
+        self.stack.set_transition_type(Gtk.StackTransitionType.CROSSFADE)
 
-        def load_home(self):
-            home_html = """
-            <html>
-            <head>
-                <style>
-                    body {
-                        background: #0a0a12;
-                        color: #e0e0e0;
-                        font-family: 'Inter', 'Segoe UI', sans-serif;
-                        display: flex;
-                        flex-direction: column;
-                        align-items: center;
-                        justify-content: center;
-                        height: 100vh;
-                        margin: 0;
-                    }
-                    h1 {
-                        font-size: 48px;
-                        font-weight: 800;
-                        background: linear-gradient(135deg, #bd93f9, #00fff7);
-                        -webkit-background-clip: text;
-                        -webkit-text-fill-color: transparent;
-                        margin-bottom: 8px;
-                    }
-                    .subtitle { color: #6b6d80; margin-bottom: 40px; }
-                    .search {
-                        width: 500px;
-                        padding: 16px 24px;
-                        border-radius: 12px;
-                        border: 1px solid #2a2a3e;
-                        background: #12121f;
-                        color: #e0e0e0;
-                        font-size: 16px;
-                        outline: none;
-                    }
-                    .search:focus { border-color: #bd93f9; }
-                    .shortcuts {
-                        display: grid;
-                        grid-template-columns: repeat(4, 1fr);
-                        gap: 16px;
-                        margin-top: 40px;
-                    }
-                    .shortcut {
-                        padding: 20px;
-                        background: #12121f;
-                        border: 1px solid #1e1e35;
-                        border-radius: 12px;
-                        text-align: center;
-                        cursor: pointer;
-                        text-decoration: none;
-                        color: #e0e0e0;
-                    }
-                    .shortcut:hover {
-                        border-color: rgba(189, 147, 249, 0.4);
-                        background: #16162a;
-                    }
-                    .shortcut .icon { font-size: 28px; margin-bottom: 8px; }
-                    .shortcut .name { font-size: 12px; color: #8b8da3; }
-                </style>
-            </head>
-            <body>
-                <h1>⚡ FexNav</h1>
-                <p class="subtitle">Navegador oficial do FexOS</p>
-                <input class="search" placeholder="Pesquisar na web..." autofocus
-                    onkeypress="if(event.key==='Enter')window.location='https://www.google.com/search?q='+this.value">
-                <div class="shortcuts">
-                    <a class="shortcut" href="https://www.google.com">
-                        <div class="icon">🔍</div><div class="name">Google</div>
-                    </a>
-                    <a class="shortcut" href="https://www.youtube.com">
-                        <div class="icon">📺</div><div class="name">YouTube</div>
-                    </a>
-                    <a class="shortcut" href="https://github.com">
-                        <div class="icon">💻</div><div class="name">GitHub</div>
-                    </a>
-                    <a class="shortcut" href="https://open.spotify.com">
-                        <div class="icon">🎵</div><div class="name">Spotify</div>
-                    </a>
-                    <a class="shortcut" href="https://web.whatsapp.com">
-                        <div class="icon">💬</div><div class="name">WhatsApp</div>
-                    </a>
-                    <a class="shortcut" href="https://discord.com/app">
-                        <div class="icon">🎮</div><div class="name">Discord</div>
-                    </a>
-                    <a class="shortcut" href="https://store.steampowered.com">
-                        <div class="icon">🕹️</div><div class="name">Steam</div>
-                    </a>
-                    <a class="shortcut" href="https://www.twitch.tv">
-                        <div class="icon">📡</div><div class="name">Twitch</div>
-                    </a>
-                </div>
-            </body>
-            </html>
-            """
-            self.webview.load_html(home_html, "fexnav://home")
+        # Start page (native GTK)
+        self.start_page = FexNavStartPage(self.navigate)
+        start_scroll = Gtk.ScrolledWindow()
+        start_scroll.set_child(self.start_page)
+        self.stack.add_named(start_scroll, "start")
 
-        def go_back(self, btn):
-            if self.webview.can_go_back():
-                self.webview.go_back()
+        # WebView
+        settings = WebKit.Settings()
+        settings.set_enable_javascript(True)
+        settings.set_enable_smooth_scrolling(self.config.get("smooth_scrolling", True))
+        settings.set_hardware_acceleration_policy(
+            WebKit.HardwareAccelerationPolicy.ALWAYS
+            if self.config.get("hardware_acceleration", True)
+            else WebKit.HardwareAccelerationPolicy.NEVER)
+        settings.set_user_agent_with_application_details("FexNav", "6.0")
 
-        def go_forward(self, btn):
-            if self.webview.can_go_forward():
-                self.webview.go_forward()
+        self.webview = WebKit.WebView()
+        self.webview.set_settings(settings)
+        self.webview.set_vexpand(True)
+        self.webview.set_hexpand(True)
+        self.webview.connect("notify::title", self.on_title_changed)
+        self.webview.connect("notify::uri", self.on_uri_changed)
+        self.webview.connect("load-changed", self.on_load_changed)
+        self.stack.add_named(self.webview, "web")
 
-        def refresh(self, btn):
-            self.webview.reload()
+        box.append(self.stack)
 
-        def on_url_activate(self, entry):
-            self.navigate(entry.get_text())
+        # Show start page
+        self.show_start_page()
 
-        def on_title_changed(self, webview, param):
-            title = webview.get_title()
-            if title:
-                self.set_title(f"{title} — FexNav")
+    def show_start_page(self):
+        self.stack.set_visible_child_name("start")
+        self.showing_startpage = True
+        self.url_entry.set_text("")
+        self.set_title("FexNav")
 
-        def on_uri_changed(self, webview, param):
-            uri = webview.get_uri()
-            if uri and not uri.startswith("fexnav://"):
-                self.url_entry.set_text(uri)
-                add_history(uri, webview.get_title() or "")
+    def navigate(self, url):
+        if not url:
+            return
+        if url == "fexnav://home":
+            self.show_start_page()
+            return
+        if not url.startswith(("http://", "https://", "file://")):
+            if "." in url and " " not in url:
+                url = "https://" + url
+            else:
+                url = f"{self.config.get('search_engine', 'https://www.google.com/search?q=')}{url}"
+        self.stack.set_visible_child_name("web")
+        self.showing_startpage = False
+        self.webview.load_uri(url)
 
-        def on_load_changed(self, webview, event):
-            if event == WebKit.LoadEvent.STARTED:
-                self.status.set_label("Carregando...")
-            elif event == WebKit.LoadEvent.FINISHED:
-                self.status.set_label("Pronto")
+    def go_back(self, btn):
+        if self.webview.can_go_back():
+            self.webview.go_back()
 
-else:
-    class FexNavApplication:
-        def __init__(self, **kwargs):
-            print("[FexNav] GTK4/WebKitGTK not available")
-            sys.exit(1)
+    def go_forward(self, btn):
+        if self.webview.can_go_forward():
+            self.webview.go_forward()
+
+    def refresh(self, btn):
+        if self.showing_startpage:
+            return
+        self.webview.reload()
+
+    def on_url_activate(self, entry):
+        self.navigate(entry.get_text())
+
+    def on_title_changed(self, webview, param):
+        title = webview.get_title()
+        if title:
+            self.set_title(f"{title} — FexNav")
+
+    def on_uri_changed(self, webview, param):
+        uri = webview.get_uri()
+        if uri:
+            self.url_entry.set_text(uri)
+            self.back_btn.set_sensitive(webview.can_go_back())
+            self.fwd_btn.set_sensitive(webview.can_go_forward())
+            add_history(uri, webview.get_title() or "")
+
+    def on_load_changed(self, webview, event):
+        pass
+
+
+class FexNavApplication(Adw.Application):
+    def __init__(self, start_url=None):
+        super().__init__(application_id="io.fexos.fexnav",
+                        flags=Gio.ApplicationFlags.HANDLES_OPEN)
+        self.start_url = start_url
+        self.config = load_config()
+
+    def do_activate(self):
+        win = FexNavWindow(application=self, config=self.config)
+        win.present()
+        if self.start_url and self.start_url != "fexnav://home":
+            win.navigate(self.start_url)
+
+
+def main(url=None):
+    ensure_dirs()
+    app = FexNavApplication(start_url=url)
+    app.run(sys.argv[1:] if not url else [])
+
+
+if __name__ == "__main__":
+    url = sys.argv[1] if len(sys.argv) > 1 else None
+    main(url)

@@ -1,86 +1,359 @@
 #!/usr/bin/env python3
 """
-FexStore GUI — PyQt6 App Store Interface.
-Beautiful, modern, Windows Store-inspired.
+FexStore GUI — PyQt6 Native App Store.
+Professional desktop application, zero web technologies.
 """
 
 import sys
+import json
+import subprocess
 from pathlib import Path
 
 try:
-    from PyQt6.QtWidgets import (QApplication, QMainWindow, QWidget, QVBoxLayout,
-                                  QHBoxLayout, QLabel, QPushButton, QTabWidget,
-                                  QListWidget, QListWidgetItem, QLineEdit,
-                                  QScrollArea, QGridLayout, QFrame, QSizePolicy)
-    from PyQt6.QtCore import Qt, QSize
-    from PyQt6.QtGui import QFont, QColor, QPalette
+    from PyQt6.QtWidgets import (
+        QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout,
+        QLabel, QPushButton, QTabWidget, QListWidget, QListWidgetItem,
+        QLineEdit, QScrollArea, QGridLayout, QFrame, QSizePolicy,
+        QMessageBox, QProgressBar
+    )
+    from PyQt6.QtCore import Qt, QSize, QThread, pyqtSignal
+    from PyQt6.QtGui import QFont, QColor, QPalette, QIcon
     HAS_QT = True
 except ImportError:
     HAS_QT = False
+    print("[FexStore] PyQt6 não encontrado. Instale: pip install PyQt6")
+    sys.exit(1)
 
-from fexstore import (APP_CATALOG, ensure_dirs, install_app, uninstall_app,
-                       is_installed, search_apps, load_installed)
+# App catalog
+APP_CATALOG = {
+    "communication": [
+        {"id": "whatsapp", "name": "WhatsApp", "desc": "Mensagens e chamadas",
+         "method": "flatpak", "flatpak_id": "io.github.nickvision.whatsapp",
+         "free": True, "rating": 4.5},
+        {"id": "telegram", "name": "Telegram", "desc": "Mensagens rápidas e seguras",
+         "method": "flatpak", "flatpak_id": "org.telegram.desktop",
+         "free": True, "rating": 4.7},
+        {"id": "discord", "name": "Discord", "desc": "Chat para gamers",
+         "method": "flatpak", "flatpak_id": "com.discordapp.Discord",
+         "free": True, "rating": 4.3},
+        {"id": "signal", "name": "Signal", "desc": "Mensagens criptografadas",
+         "method": "flatpak", "flatpak_id": "org.signal.Signal",
+         "free": True, "rating": 4.6},
+    ],
+    "games": [
+        {"id": "steam", "name": "Steam", "desc": "Plataforma de jogos",
+         "method": "pacman", "package": "steam",
+         "free": True, "rating": 4.8},
+        {"id": "lutris", "name": "Lutris", "desc": "Gerenciador de jogos Linux",
+         "method": "pacman", "package": "lutris",
+         "free": True, "rating": 4.4},
+        {"id": "heroic", "name": "Heroic Launcher", "desc": "Epic Games e GOG",
+         "method": "flatpak", "flatpak_id": "com.heroicgameslauncher.hgl",
+         "free": True, "rating": 4.2},
+        {"id": "retroarch", "name": "RetroArch", "desc": "Emulador multissistema",
+         "method": "pacman", "package": "retroarch",
+         "free": True, "rating": 4.5},
+        {"id": "bottles", "name": "Bottles", "desc": "Execute apps Windows",
+         "method": "flatpak", "flatpak_id": "com.usebottles.bottles",
+         "free": True, "rating": 4.3},
+        {"id": "fexlauncher", "name": "FexLauncher", "desc": "Minecraft Launcher",
+         "method": "native", "command": "fexlauncher --gui",
+         "free": True, "rating": 4.9},
+    ],
+    "productivity": [
+        {"id": "libreoffice", "name": "LibreOffice", "desc": "Suite de escritório",
+         "method": "pacman", "package": "libreoffice-fresh",
+         "free": True, "rating": 4.3},
+        {"id": "obsidian", "name": "Obsidian", "desc": "Notas e conhecimento",
+         "method": "flatpak", "flatpak_id": "md.obsidian.Obsidian",
+         "free": True, "rating": 4.7},
+        {"id": "fexcode", "name": "FexCode", "desc": "IDE do FexOS",
+         "method": "native", "command": "fexcode",
+         "free": True, "rating": 4.8},
+        {"id": "thunderbird", "name": "Thunderbird", "desc": "Cliente de email",
+         "method": "pacman", "package": "thunderbird",
+         "free": True, "rating": 4.2},
+    ],
+    "multimedia": [
+        {"id": "spotify", "name": "Spotify", "desc": "Streaming de música",
+         "method": "flatpak", "flatpak_id": "com.spotify.Client",
+         "free": True, "rating": 4.6},
+        {"id": "vlc", "name": "VLC", "desc": "Reprodutor de mídia",
+         "method": "pacman", "package": "vlc",
+         "free": True, "rating": 4.8},
+        {"id": "obs", "name": "OBS Studio", "desc": "Gravação e streaming",
+         "method": "pacman", "package": "obs-studio",
+         "free": True, "rating": 4.7},
+        {"id": "gimp", "name": "GIMP", "desc": "Edição de imagens",
+         "method": "pacman", "package": "gimp",
+         "free": True, "rating": 4.3},
+        {"id": "blender", "name": "Blender", "desc": "Modelagem 3D e animação",
+         "method": "pacman", "package": "blender",
+         "free": True, "rating": 4.9},
+    ],
+    "system": [
+        {"id": "fexnav", "name": "FexNav", "desc": "Navegador do FexOS",
+         "method": "native", "command": "fexnav",
+         "free": True, "rating": 4.8},
+        {"id": "timeshift", "name": "Timeshift", "desc": "Backup do sistema",
+         "method": "pacman", "package": "timeshift",
+         "free": True, "rating": 4.5},
+        {"id": "kitty", "name": "Kitty", "desc": "Terminal GPU-accelerated",
+         "method": "pacman", "package": "kitty",
+         "free": True, "rating": 4.6},
+    ],
+}
 
-STYLESHEET = """
-QMainWindow { background-color: #0a0a12; }
-QWidget { color: #e0e0e0; font-family: "Inter", "Segoe UI", sans-serif; }
-QTabWidget::pane { border: none; background: #0f0f1a; }
-QTabBar::tab {
-    background: #1a1a2e; color: #8b8da3; padding: 12px 20px;
-    border: none; border-bottom: 2px solid transparent;
-}
-QTabBar::tab:selected { color: #bd93f9; border-bottom: 2px solid #bd93f9; }
-QTabBar::tab:hover { color: #fff; background: #16162a; }
-QPushButton {
-    background: qlineargradient(x1:0,y1:0,x2:1,y2:0, stop:0 #bd93f9, stop:1 #00fff7);
-    color: #0a0a12; border: none; border-radius: 8px;
-    padding: 8px 16px; font-weight: 700; font-size: 12px;
-}
-QPushButton:hover { background: #cda4ff; }
-QPushButton#installed {
-    background: rgba(80,250,123,0.15); color: #50fa7b;
-    border: 1px solid rgba(80,250,123,0.3);
-}
-QPushButton#uninstall {
-    background: rgba(255,85,85,0.15); color: #ff5555;
-    border: 1px solid rgba(255,85,85,0.3);
-}
-QLineEdit {
-    background: #1a1a2e; border: 1px solid #2a2a3e; border-radius: 10px;
-    padding: 10px 16px; color: #e0e0e0; font-size: 14px;
-}
-QLineEdit:focus { border-color: #bd93f9; }
-QFrame#appCard {
-    background: #12121f; border: 1px solid #1e1e35;
-    border-radius: 12px; padding: 16px;
-}
-QFrame#appCard:hover { border-color: rgba(189,147,249,0.3); }
-QLabel#title { font-size: 22px; font-weight: 800; color: #fff; }
-QLabel#appName { font-size: 14px; font-weight: 600; color: #fff; }
-QLabel#appDesc { font-size: 12px; color: #6b6d80; }
-QLabel#appIcon { font-size: 32px; }
-QLabel#categoryTitle { font-size: 16px; font-weight: 700; color: #bd93f9; }
-QScrollArea { border: none; }
-"""
+INSTALLED_FILE = Path.home() / ".fexstore" / "installed.json"
 
 
-class FexStoreApp(QApplication):
-    def __init__(self, argv):
-        super().__init__(argv)
-        self.setApplicationName("FexStore")
-        self.setStyle("Fusion")
-        self.setStyleSheet(STYLESHEET)
-        self.window = FexStoreWindow()
-        self.window.show()
+def load_installed():
+    if INSTALLED_FILE.exists():
+        return json.loads(INSTALLED_FILE.read_text())
+    return {"apps": []}
+
+
+def save_installed(data):
+    INSTALLED_FILE.parent.mkdir(parents=True, exist_ok=True)
+    INSTALLED_FILE.write_text(json.dumps(data, indent=2))
+
+
+def is_installed(app_id):
+    data = load_installed()
+    return any(a["id"] == app_id for a in data["apps"])
+
+
+class InstallThread(QThread):
+    progress = pyqtSignal(str)
+    done = pyqtSignal(bool, str)
+
+    def __init__(self, app):
+        super().__init__()
+        self.app = app
+
+    def run(self):
+        app = self.app
+        method = app.get("method", "")
+        try:
+            if method == "flatpak":
+                self.progress.emit(f"Instalando {app['name']} via Flatpak...")
+                result = subprocess.run(
+                    ["flatpak", "install", "-y", "flathub", app["flatpak_id"]],
+                    capture_output=True, text=True, timeout=300)
+                if result.returncode == 0:
+                    self.done.emit(True, app["name"])
+                else:
+                    self.done.emit(False, result.stderr[:200])
+            elif method == "pacman":
+                self.progress.emit(f"Instalando {app['name']} via pacman...")
+                result = subprocess.run(
+                    ["sudo", "pacman", "-S", "--noconfirm", app["package"]],
+                    capture_output=True, text=True, timeout=300)
+                if result.returncode == 0:
+                    self.done.emit(True, app["name"])
+                else:
+                    self.done.emit(False, result.stderr[:200])
+            elif method == "native":
+                self.done.emit(True, f"{app['name']} já está instalado")
+            else:
+                self.done.emit(False, "Método desconhecido")
+        except Exception as e:
+            self.done.emit(False, str(e))
+
+
+def create_dark_palette():
+    palette = QPalette()
+    palette.setColor(QPalette.ColorRole.Window, QColor(14, 14, 22))
+    palette.setColor(QPalette.ColorRole.WindowText, QColor(224, 224, 240))
+    palette.setColor(QPalette.ColorRole.Base, QColor(10, 10, 18))
+    palette.setColor(QPalette.ColorRole.AlternateBase, QColor(18, 18, 28))
+    palette.setColor(QPalette.ColorRole.Text, QColor(224, 224, 240))
+    palette.setColor(QPalette.ColorRole.Button, QColor(24, 24, 38))
+    palette.setColor(QPalette.ColorRole.ButtonText, QColor(224, 224, 240))
+    palette.setColor(QPalette.ColorRole.Highlight, QColor(108, 77, 179))
+    palette.setColor(QPalette.ColorRole.HighlightedText, QColor(255, 255, 255))
+    return palette
+
+
+class AppCard(QFrame):
+    def __init__(self, app, parent=None):
+        super().__init__(parent)
+        self.app = app
+        self.setFixedHeight(100)
+        self.setStyleSheet("""
+            AppCard {
+                background: #16161e; border: 1px solid #1e1e30;
+                border-radius: 10px;
+            }
+            AppCard:hover { border-color: #3d3d6e; background: #1a1a24; }
+        """)
+
+        layout = QHBoxLayout(self)
+        layout.setContentsMargins(16, 12, 16, 12)
+        layout.setSpacing(14)
+
+        # App icon (first letter in colored circle)
+        icon_frame = QFrame()
+        icon_frame.setFixedSize(56, 56)
+        icon_frame.setStyleSheet(f"""
+            QFrame {{
+                background: {self._get_color()};
+                border-radius: 12px; border: none;
+            }}
+        """)
+        icon_label = QLabel(app["name"][0].upper())
+        icon_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        icon_label.setFont(QFont("Inter", 20, QFont.Weight.Bold))
+        icon_label.setStyleSheet("color: #fff; border: none; background: transparent;")
+        icon_layout = QVBoxLayout(icon_frame)
+        icon_layout.setContentsMargins(0, 0, 0, 0)
+        icon_layout.addWidget(icon_label)
+        layout.addWidget(icon_frame)
+
+        # Info
+        info_layout = QVBoxLayout()
+        info_layout.setSpacing(3)
+
+        name_label = QLabel(app["name"])
+        name_label.setFont(QFont("Inter", 14, QFont.Weight.DemiBold))
+        name_label.setStyleSheet("color: #f0f0f5; border: none;")
+        info_layout.addWidget(name_label)
+
+        desc_label = QLabel(app.get("desc", ""))
+        desc_label.setStyleSheet("color: #6b6b80; font-size: 12px; border: none;")
+        info_layout.addWidget(desc_label)
+
+        rating_label = QLabel(f"{'★' * int(app.get('rating', 0))} {app.get('rating', '')}")
+        rating_label.setStyleSheet("color: #c9a227; font-size: 11px; border: none;")
+        info_layout.addWidget(rating_label)
+
+        layout.addLayout(info_layout)
+        layout.addStretch()
+
+        # Install button
+        if is_installed(app["id"]):
+            btn = QPushButton("Instalado")
+            btn.setEnabled(False)
+            btn.setStyleSheet("""
+                QPushButton {
+                    background: rgba(80,200,120,0.12); color: #50c878;
+                    border: 1px solid rgba(80,200,120,0.25);
+                    border-radius: 8px; padding: 8px 16px; font-size: 12px;
+                }
+            """)
+        else:
+            btn = QPushButton("Instalar")
+            btn.setStyleSheet("""
+                QPushButton {
+                    background: #6d4db3; color: #fff; border: none;
+                    border-radius: 8px; padding: 8px 16px;
+                    font-weight: bold; font-size: 12px;
+                }
+                QPushButton:hover { background: #7c5cbf; }
+                QPushButton:pressed { background: #5b3d9e; }
+            """)
+            btn.clicked.connect(lambda: self.install_app())
+        layout.addWidget(btn)
+
+    def _get_color(self):
+        colors = ["#6d4db3", "#4d8fb3", "#4db36d", "#b34d4d", "#b38f4d", "#4d4db3"]
+        return colors[hash(self.app["id"]) % len(colors)]
+
+    def install_app(self):
+        self.thread = InstallThread(self.app)
+        self.thread.done.connect(self.on_install_done)
+        self.thread.start()
+
+    def on_install_done(self, success, msg):
+        if success:
+            installed = load_installed()
+            installed["apps"].append({
+                "id": self.app["id"], "name": self.app["name"],
+                "method": self.app.get("method", "")
+            })
+            save_installed(installed)
+
+
+class CategoryPage(QWidget):
+    def __init__(self, category, title, parent=None):
+        super().__init__(parent)
+        layout = QVBoxLayout(self)
+        layout.setContentsMargins(24, 24, 24, 24)
+        layout.setSpacing(16)
+
+        header = QLabel(title)
+        header.setFont(QFont("Inter", 20, QFont.Weight.Bold))
+        header.setStyleSheet("color: #f0f0f5;")
+        layout.addWidget(header)
+
+        scroll = QScrollArea()
+        scroll.setWidgetResizable(True)
+        scroll.setStyleSheet("QScrollArea { border: none; }")
+
+        content = QWidget()
+        grid = QVBoxLayout(content)
+        grid.setSpacing(8)
+
+        apps = APP_CATALOG.get(category, [])
+        for app in apps:
+            card = AppCard(app)
+            grid.addWidget(card)
+        grid.addStretch()
+
+        scroll.setWidget(content)
+        layout.addWidget(scroll)
+
+
+class DiscoverPage(QWidget):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        layout = QVBoxLayout(self)
+        layout.setContentsMargins(24, 24, 24, 24)
+        layout.setSpacing(20)
+
+        header = QLabel("Descubra Apps e Jogos")
+        header.setFont(QFont("Inter", 22, QFont.Weight.Bold))
+        header.setStyleSheet("color: #f0f0f5;")
+        layout.addWidget(header)
+
+        scroll = QScrollArea()
+        scroll.setWidgetResizable(True)
+        scroll.setStyleSheet("QScrollArea { border: none; }")
+
+        content = QWidget()
+        content_layout = QVBoxLayout(content)
+        content_layout.setSpacing(20)
+
+        categories = [
+            ("games", "Jogos"),
+            ("communication", "Comunicação"),
+            ("multimedia", "Multimídia"),
+            ("productivity", "Produtividade"),
+            ("system", "Sistema"),
+        ]
+
+        for cat_id, cat_name in categories:
+            sec_label = QLabel(cat_name)
+            sec_label.setFont(QFont("Inter", 15, QFont.Weight.DemiBold))
+            sec_label.setStyleSheet("color: #a78bfa;")
+            content_layout.addWidget(sec_label)
+
+            apps = APP_CATALOG.get(cat_id, [])[:3]
+            for app in apps:
+                card = AppCard(app)
+                content_layout.addWidget(card)
+
+        content_layout.addStretch()
+        scroll.setWidget(content)
+        layout.addWidget(scroll)
 
 
 class FexStoreWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("FexStore — Apps & Jogos")
-        self.setMinimumSize(1000, 650)
-        self.resize(1100, 700)
-        ensure_dirs()
+        self.setWindowTitle("FexStore")
+        self.setMinimumSize(900, 600)
+        self.resize(1000, 700)
         self.setup_ui()
 
     def setup_ui(self):
@@ -90,170 +363,70 @@ class FexStoreWindow(QMainWindow):
         layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(0)
 
-        # Header
-        header = QFrame()
-        header.setFixedHeight(70)
-        header.setStyleSheet("background: #0a0a12; border-bottom: 1px solid #1a1a2e;")
-        h_layout = QHBoxLayout(header)
-        h_layout.setContentsMargins(24, 0, 24, 0)
+        # Search bar
+        search_frame = QFrame()
+        search_frame.setFixedHeight(56)
+        search_frame.setStyleSheet("QFrame { background: #0e0e16; border-bottom: 1px solid #1e1e30; }")
+        search_layout = QHBoxLayout(search_frame)
+        search_layout.setContentsMargins(24, 0, 24, 0)
 
-        logo = QLabel("⚡ FexStore")
-        logo.setStyleSheet("font-size: 20px; font-weight: 800; color: #bd93f9;")
-        h_layout.addWidget(logo)
+        logo = QLabel("FexStore")
+        logo.setFont(QFont("Inter", 16, QFont.Weight.Bold))
+        logo.setStyleSheet("color: #a78bfa; border: none;")
+        search_layout.addWidget(logo)
 
-        self.search_bar = QLineEdit()
-        self.search_bar.setPlaceholderText("Buscar apps e jogos...")
-        self.search_bar.setFixedWidth(300)
-        self.search_bar.returnPressed.connect(self.do_search)
-        h_layout.addStretch()
-        h_layout.addWidget(self.search_bar)
+        search_layout.addStretch()
 
-        layout.addWidget(header)
+        self.search_input = QLineEdit()
+        self.search_input.setPlaceholderText("Buscar apps e jogos...")
+        self.search_input.setFixedWidth(280)
+        self.search_input.setStyleSheet("""
+            QLineEdit {
+                background: #14141f; border: 1px solid #2a2a3e;
+                border-radius: 8px; padding: 8px 14px;
+                color: #e0e0f0; font-size: 13px;
+            }
+            QLineEdit:focus { border-color: #6d4db3; }
+        """)
+        search_layout.addWidget(self.search_input)
+        layout.addWidget(search_frame)
 
         # Tabs
-        tabs = QTabWidget()
-        tabs.addTab(self.create_discover_tab(), "🏠 Descobrir")
-        tabs.addTab(self.create_category_tab("games", "🎮 Jogos"), "🎮 Jogos")
-        tabs.addTab(self.create_category_tab("communication", "💬 Comunicação"), "💬 Social")
-        tabs.addTab(self.create_category_tab("multimedia", "🎬 Mídia"), "🎬 Mídia")
-        tabs.addTab(self.create_category_tab("productivity", "💼 Produtividade"), "💼 Produtividade")
-        tabs.addTab(self.create_installed_tab(), "✓ Instalados")
-        layout.addWidget(tabs)
+        self.tabs = QTabWidget()
+        self.tabs.setStyleSheet("""
+            QTabWidget::pane { border: none; background: #0e0e16; }
+            QTabBar::tab {
+                background: #0a0a12; color: #6b6b80;
+                padding: 12px 20px; border: none;
+                border-bottom: 2px solid transparent;
+                font-size: 13px;
+            }
+            QTabBar::tab:selected {
+                color: #a78bfa; border-bottom: 2px solid #6d4db3;
+                background: #0e0e16;
+            }
+            QTabBar::tab:hover { color: #c0c0d8; }
+        """)
 
-    def create_discover_tab(self):
-        scroll = QScrollArea()
-        scroll.setWidgetResizable(True)
-        content = QWidget()
-        layout = QVBoxLayout(content)
-        layout.setContentsMargins(24, 24, 24, 24)
-        layout.setSpacing(24)
+        self.tabs.addTab(DiscoverPage(), "Descobrir")
+        self.tabs.addTab(CategoryPage("games", "Jogos"), "Jogos")
+        self.tabs.addTab(CategoryPage("communication", "Comunicação"), "Social")
+        self.tabs.addTab(CategoryPage("multimedia", "Multimídia"), "Mídia")
+        self.tabs.addTab(CategoryPage("productivity", "Produtividade"), "Produtividade")
+        self.tabs.addTab(CategoryPage("system", "Sistema"), "Sistema")
 
-        title = QLabel("Descubra apps e jogos")
-        title.setObjectName("title")
-        layout.addWidget(title)
-
-        # Featured section
-        for category, apps in APP_CATALOG.items():
-            cat_label = QLabel(f"{'🎮' if category=='games' else '💬' if category=='communication' else '🎬' if category=='multimedia' else '💼'} {category.capitalize()}")
-            cat_label.setObjectName("categoryTitle")
-            layout.addWidget(cat_label)
-
-            grid = QGridLayout()
-            grid.setSpacing(12)
-            for i, app in enumerate(apps[:4]):
-                card = self.create_app_card(app)
-                grid.addWidget(card, 0, i)
-            layout.addLayout(grid)
-
-        layout.addStretch()
-        scroll.setWidget(content)
-        return scroll
-
-    def create_category_tab(self, category, title_text):
-        scroll = QScrollArea()
-        scroll.setWidgetResizable(True)
-        content = QWidget()
-        layout = QVBoxLayout(content)
-        layout.setContentsMargins(24, 24, 24, 24)
-        layout.setSpacing(12)
-
-        title = QLabel(title_text)
-        title.setObjectName("title")
-        layout.addWidget(title)
-
-        apps = APP_CATALOG.get(category, [])
-        grid = QGridLayout()
-        grid.setSpacing(12)
-        for i, app in enumerate(apps):
-            card = self.create_app_card(app)
-            grid.addWidget(card, i // 3, i % 3)
-        layout.addLayout(grid)
-
-        layout.addStretch()
-        scroll.setWidget(content)
-        return scroll
-
-    def create_installed_tab(self):
-        widget = QWidget()
-        layout = QVBoxLayout(widget)
-        layout.setContentsMargins(24, 24, 24, 24)
-
-        title = QLabel("Apps Instalados")
-        title.setObjectName("title")
-        layout.addWidget(title)
-
-        installed = load_installed()
-        if installed["apps"]:
-            for app_info in installed["apps"]:
-                label = QLabel(f"✓ {app_info['name']} — instalado em {app_info['installed_at'][:10]}")
-                layout.addWidget(label)
-        else:
-            layout.addWidget(QLabel("Nenhum app instalado via FexStore"))
-
-        layout.addStretch()
-        return widget
-
-    def create_app_card(self, app):
-        card = QFrame()
-        card.setObjectName("appCard")
-        card.setFixedHeight(140)
-        card.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
-
-        layout = QVBoxLayout(card)
-        layout.setSpacing(6)
-
-        # Icon + name
-        top = QHBoxLayout()
-        icon = QLabel(app.get("icon", "📦"))
-        icon.setObjectName("appIcon")
-        top.addWidget(icon)
-
-        info = QVBoxLayout()
-        name = QLabel(app["name"])
-        name.setObjectName("appName")
-        info.addWidget(name)
-
-        desc = QLabel(app.get("description", ""))
-        desc.setObjectName("appDesc")
-        info.addWidget(desc)
-        top.addLayout(info)
-        top.addStretch()
-
-        layout.addLayout(top)
-
-        # Rating + Install button
-        bottom = QHBoxLayout()
-        rating = QLabel(f"⭐ {app.get('rating', 'N/A')}")
-        rating.setStyleSheet("color: #f1fa8c; font-size: 11px;")
-        bottom.addWidget(rating)
-
-        price = QLabel("Grátis" if app.get("free") else "Pago")
-        price.setStyleSheet("color: #50fa7b; font-size: 11px;")
-        bottom.addWidget(price)
-        bottom.addStretch()
-
-        if is_installed(app["id"]):
-            btn = QPushButton("✓ Instalado")
-            btn.setObjectName("installed")
-        else:
-            btn = QPushButton("Instalar")
-            btn.clicked.connect(lambda checked, a=app: self.install_clicked(a))
-        bottom.addWidget(btn)
-
-        layout.addLayout(bottom)
-        return card
-
-    def install_clicked(self, app):
-        install_app(app)
-
-    def do_search(self):
-        query = self.search_bar.text()
-        results = search_apps(query)
-        # Could update UI with results
+        layout.addWidget(self.tabs)
 
 
-if not HAS_QT:
-    class FexStoreApp:
-        def __init__(self, argv):
-            print("[FexStore] PyQt6 required")
-            sys.exit(1)
+def main():
+    app = QApplication(sys.argv)
+    app.setApplicationName("FexStore")
+    app.setStyle("Fusion")
+    app.setPalette(create_dark_palette())
+    window = FexStoreWindow()
+    window.show()
+    sys.exit(app.exec())
+
+
+if __name__ == "__main__":
+    main()

@@ -1,2 +1,7 @@
 #!/bin/bash
-exec /opt/fexos/scripts/fex-taskmanager.sh "$@"
+# FexOS Task Manager — Native PyQt6 GUI
+if [ "$1" = "--tui" ]; then
+    exec /opt/fexos/scripts/fex-taskmanager.sh "$@"
+else
+    exec python3 /opt/fex-taskmanager/fex_taskmanager_gui.py "$@"
+fi

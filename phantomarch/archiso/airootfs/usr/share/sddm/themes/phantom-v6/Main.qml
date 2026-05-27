@@ -8,285 +8,465 @@ Rectangle {
     id: root
     width: Screen.width
     height: Screen.height
-    color: "#0a0a12"
 
     property string currentUser: userModel.lastUser
     property int currentIndex: userModel.lastIndex
+    property bool loginFailed: false
 
-    // Background gradient (no external image dependency)
+    // Deep background
     Rectangle {
         anchors.fill: parent
-        gradient: Gradient {
-            GradientStop { position: 0.0; color: "#0a0a1a" }
-            GradientStop { position: 0.4; color: "#12102a" }
-            GradientStop { position: 0.7; color: "#0d1525" }
-            GradientStop { position: 1.0; color: "#0a0a12" }
+        color: "#08080f"
+    }
+
+    // Ambient gradient orbs
+    Item {
+        anchors.fill: parent
+
+        Rectangle {
+            id: orb1
+            width: root.width * 0.6
+            height: root.width * 0.6
+            radius: width / 2
+            x: root.width * 0.6
+            y: -root.height * 0.1
+            visible: false
+            color: "#1a0a3d"
+        }
+
+        Rectangle {
+            id: orb2
+            width: root.width * 0.4
+            height: root.width * 0.4
+            radius: width / 2
+            x: -root.width * 0.1
+            y: root.height * 0.5
+            visible: false
+            color: "#0a1a2d"
+        }
+
+        // Apply blur to orbs for ambient light
+        FastBlur {
+            anchors.fill: parent
+            source: ShaderEffectSource {
+                sourceItem: Item {
+                    width: root.width
+                    height: root.height
+                    Rectangle {
+                        width: root.width * 0.6
+                        height: root.width * 0.6
+                        radius: width / 2
+                        x: root.width * 0.6
+                        y: -root.height * 0.1
+                        color: "#1a0a3d"
+                        opacity: 0.4
+                    }
+                    Rectangle {
+                        width: root.width * 0.4
+                        height: root.width * 0.4
+                        radius: width / 2
+                        x: -root.width * 0.1
+                        y: root.height * 0.5
+                        color: "#0a1a2d"
+                        opacity: 0.3
+                    }
+                }
+            }
+            radius: 128
         }
     }
 
-    // Subtle animated glow (lightweight)
-    Rectangle {
-        id: glowOrb
-        width: 400
-        height: 400
-        radius: 200
-        x: parent.width * 0.7
-        y: parent.height * 0.3
-        color: "transparent"
-        opacity: 0.15
+    // Clock and date (top-left)
+    Column {
+        anchors.left: parent.left
+        anchors.top: parent.top
+        anchors.margins: 48
+        spacing: 4
 
-        RadialGradient {
-            anchors.fill: parent
-            gradient: Gradient {
-                GradientStop { position: 0.0; color: "#bd93f9" }
-                GradientStop { position: 1.0; color: "transparent" }
+        Text {
+            id: timeLabel
+            font.pixelSize: 72
+            font.weight: Font.Thin
+            font.family: "Inter"
+            color: "#ffffff"
+            opacity: 0.95
+
+            Timer {
+                interval: 1000
+                running: true
+                repeat: true
+                triggeredOnStart: true
+                onTriggered: parent.text = Qt.formatDateTime(new Date(), "HH:mm")
             }
         }
 
-        SequentialAnimation on opacity {
-            loops: Animation.Infinite
-            NumberAnimation { to: 0.2; duration: 3000; easing.type: Easing.InOutSine }
-            NumberAnimation { to: 0.1; duration: 3000; easing.type: Easing.InOutSine }
-        }
-    }
+        Text {
+            id: dateLabel
+            font.pixelSize: 16
+            font.weight: Font.Normal
+            font.family: "Inter"
+            color: "#9090a8"
 
-    // Second glow orb (cyan)
-    Rectangle {
-        width: 300
-        height: 300
-        radius: 150
-        x: parent.width * 0.2
-        y: parent.height * 0.6
-        color: "transparent"
-        opacity: 0.08
-
-        RadialGradient {
-            anchors.fill: parent
-            gradient: Gradient {
-                GradientStop { position: 0.0; color: "#00fff7" }
-                GradientStop { position: 1.0; color: "transparent" }
+            Timer {
+                interval: 60000
+                running: true
+                repeat: true
+                triggeredOnStart: true
+                onTriggered: parent.text = Qt.formatDateTime(new Date(), "dddd, d 'de' MMMM 'de' yyyy")
             }
         }
     }
 
-    // Center login panel
+    // Center login card
     Rectangle {
-        id: loginPanel
+        id: loginCard
         anchors.centerIn: parent
-        width: 420
-        height: 520
-        color: Qt.rgba(0.06, 0.06, 0.1, 0.85)
-        radius: 24
-        border.color: Qt.rgba(0.74, 0.58, 0.98, 0.2)
+        width: 380
+        height: 480
+        radius: 20
+        color: Qt.rgba(0.08, 0.08, 0.12, 0.75)
+        border.color: Qt.rgba(1, 1, 1, 0.06)
         border.width: 1
 
+        // Card blur backdrop
         layer.enabled: true
         layer.effect: DropShadow {
             transparentBorder: true
             horizontalOffset: 0
-            verticalOffset: 8
-            radius: 32
-            samples: 32
-            color: Qt.rgba(0, 0, 0, 0.4)
+            verticalOffset: 16
+            radius: 48
+            samples: 48
+            color: Qt.rgba(0, 0, 0, 0.5)
         }
 
-        ColumnLayout {
+        Column {
             anchors.fill: parent
-            anchors.margins: 40
-            spacing: 16
+            anchors.margins: 36
+            spacing: 0
 
-            // FexOS Logo
-            Text {
-                text: "⚡ FexOS"
-                font.pixelSize: 32
-                font.weight: Font.ExtraBold
-                color: "#bd93f9"
-                Layout.alignment: Qt.AlignHCenter
-            }
+            // Top spacer
+            Item { width: 1; height: 24 }
 
-            // Subtitle
-            Text {
-                text: "Ghost in the Machine"
-                font.pixelSize: 12
-                color: "#6b6d80"
-                Layout.alignment: Qt.AlignHCenter
-            }
-
-            Item { Layout.fillHeight: true; Layout.maximumHeight: 20 }
-
-            // Avatar circle
+            // Avatar
             Rectangle {
-                Layout.alignment: Qt.AlignHCenter
-                width: 80
-                height: 80
-                radius: 40
-                color: Qt.rgba(0.74, 0.58, 0.98, 0.2)
-                border.color: Qt.rgba(0.74, 0.58, 0.98, 0.4)
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: 96
+                height: 96
+                radius: 48
+                color: "#1e1e32"
+                border.color: "#3d3d5c"
                 border.width: 2
 
                 Text {
                     anchors.centerIn: parent
                     text: currentUser ? currentUser.charAt(0).toUpperCase() : "U"
-                    font.pixelSize: 28
-                    font.weight: Font.Bold
-                    color: "#bd93f9"
+                    font.pixelSize: 36
+                    font.weight: Font.Medium
+                    font.family: "Inter"
+                    color: "#a78bfa"
                 }
             }
+
+            Item { width: 1; height: 16 }
 
             // Username
             Text {
+                anchors.horizontalCenter: parent.horizontalCenter
                 text: currentUser || "Usuário"
-                font.pixelSize: 18
+                font.pixelSize: 20
                 font.weight: Font.DemiBold
-                color: "#ffffff"
-                Layout.alignment: Qt.AlignHCenter
+                font.family: "Inter"
+                color: "#f0f0f5"
             }
 
-            Item { Layout.fillHeight: true; Layout.maximumHeight: 12 }
+            Item { width: 1; height: 4 }
 
-            // Password field
-            TextField {
-                id: passwordField
-                Layout.fillWidth: true
-                Layout.preferredHeight: 48
-                placeholderText: "Senha"
-                echoMode: TextInput.Password
-                font.pixelSize: 14
-                color: "#e0e0e0"
-                horizontalAlignment: TextInput.AlignHCenter
+            // Account type
+            Text {
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: "Conta local"
+                font.pixelSize: 12
+                font.family: "Inter"
+                color: "#6b6b80"
+            }
 
-                background: Rectangle {
-                    radius: 12
-                    color: Qt.rgba(0.1, 0.1, 0.18, 0.8)
-                    border.color: passwordField.activeFocus ?
-                        "#bd93f9" : Qt.rgba(0.2, 0.2, 0.3, 0.8)
-                    border.width: passwordField.activeFocus ? 2 : 1
+            Item { width: 1; height: 32 }
+
+            // Password input
+            Rectangle {
+                width: parent.width
+                height: 44
+                radius: 10
+                color: passwordField.activeFocus ? "#1a1a2e" : "#14141f"
+                border.color: passwordField.activeFocus ? "#7c5cbf" : "#2a2a3e"
+                border.width: passwordField.activeFocus ? 2 : 1
+
+                Behavior on border.color {
+                    ColorAnimation { duration: 150 }
                 }
 
-                Keys.onReturnPressed: doLogin()
-                Keys.onEnterPressed: doLogin()
+                TextField {
+                    id: passwordField
+                    anchors.fill: parent
+                    anchors.margins: 2
+                    verticalAlignment: TextInput.AlignVCenter
+                    leftPadding: 14
+                    rightPadding: 14
+                    placeholderText: "Senha"
+                    echoMode: TextInput.Password
+                    font.pixelSize: 14
+                    font.family: "Inter"
+                    color: "#e8e8f0"
+                    selectionColor: "#7c5cbf"
+                    placeholderTextColor: "#4a4a60"
+                    background: Item {}
+
+                    Keys.onReturnPressed: doLogin()
+                    Keys.onEnterPressed: doLogin()
+                }
             }
+
+            Item { width: 1; height: 12 }
+
+            // Error message
+            Text {
+                id: errorLabel
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: loginFailed ? "Senha incorreta. Tente novamente." : ""
+                font.pixelSize: 12
+                font.family: "Inter"
+                color: "#ef4444"
+                opacity: loginFailed ? 1 : 0
+
+                Behavior on opacity {
+                    NumberAnimation { duration: 200 }
+                }
+            }
+
+            Item { width: 1; height: 16 }
 
             // Login button
             Rectangle {
-                Layout.fillWidth: true
-                Layout.preferredHeight: 48
-                radius: 12
+                width: parent.width
+                height: 44
+                radius: 10
+                color: loginBtnMouse.pressed ? "#5b3d9e" : (loginBtnMouse.containsMouse ? "#7c5cbf" : "#6d4db3")
 
-                gradient: Gradient {
-                    orientation: Gradient.Horizontal
-                    GradientStop { position: 0.0; color: "#bd93f9" }
-                    GradientStop { position: 1.0; color: "#00fff7" }
+                Behavior on color {
+                    ColorAnimation { duration: 100 }
                 }
 
                 Text {
                     anchors.centerIn: parent
                     text: "Entrar"
-                    font.pixelSize: 15
-                    font.weight: Font.Bold
-                    color: "#0a0a12"
+                    font.pixelSize: 14
+                    font.weight: Font.DemiBold
+                    font.family: "Inter"
+                    color: "#ffffff"
                 }
 
                 MouseArea {
+                    id: loginBtnMouse
                     anchors.fill: parent
+                    hoverEnabled: true
                     cursorShape: Qt.PointingHandCursor
                     onClicked: doLogin()
                 }
             }
 
-            // Error message
-            Text {
-                id: errorMsg
-                text: ""
-                color: "#ff5555"
-                font.pixelSize: 12
-                Layout.alignment: Qt.AlignHCenter
-                visible: text !== ""
+            Item { width: 1; height: 24 }
+
+            // Separator
+            Rectangle {
+                width: parent.width
+                height: 1
+                color: "#1e1e2e"
             }
 
-            Item { Layout.fillHeight: true }
+            Item { width: 1; height: 20 }
 
-            // Power buttons row
-            RowLayout {
-                Layout.alignment: Qt.AlignHCenter
-                spacing: 24
+            // Bottom actions
+            Row {
+                anchors.horizontalCenter: parent.horizontalCenter
+                spacing: 32
 
-                Text {
-                    text: "⏻ Desligar"
-                    font.pixelSize: 12
-                    color: "#6b6d80"
-                    MouseArea {
-                        anchors.fill: parent
-                        cursorShape: Qt.PointingHandCursor
-                        onClicked: sddm.powerOff()
+                // Shutdown
+                Column {
+                    spacing: 4
+                    Rectangle {
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        width: 36
+                        height: 36
+                        radius: 18
+                        color: shutdownMouse.containsMouse ? "#1e1e2e" : "transparent"
+
+                        Text {
+                            anchors.centerIn: parent
+                            text: "\u23FB"
+                            font.pixelSize: 16
+                            color: "#8080a0"
+                        }
+
+                        MouseArea {
+                            id: shutdownMouse
+                            anchors.fill: parent
+                            hoverEnabled: true
+                            cursorShape: Qt.PointingHandCursor
+                            onClicked: sddm.powerOff()
+                        }
+                    }
+                    Text {
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        text: "Desligar"
+                        font.pixelSize: 10
+                        font.family: "Inter"
+                        color: "#6b6b80"
                     }
                 }
 
-                Text {
-                    text: "🔄 Reiniciar"
-                    font.pixelSize: 12
-                    color: "#6b6d80"
-                    MouseArea {
-                        anchors.fill: parent
-                        cursorShape: Qt.PointingHandCursor
-                        onClicked: sddm.reboot()
+                // Restart
+                Column {
+                    spacing: 4
+                    Rectangle {
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        width: 36
+                        height: 36
+                        radius: 18
+                        color: restartMouse.containsMouse ? "#1e1e2e" : "transparent"
+
+                        Text {
+                            anchors.centerIn: parent
+                            text: "\u21BB"
+                            font.pixelSize: 16
+                            color: "#8080a0"
+                        }
+
+                        MouseArea {
+                            id: restartMouse
+                            anchors.fill: parent
+                            hoverEnabled: true
+                            cursorShape: Qt.PointingHandCursor
+                            onClicked: sddm.reboot()
+                        }
+                    }
+                    Text {
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        text: "Reiniciar"
+                        font.pixelSize: 10
+                        font.family: "Inter"
+                        color: "#6b6b80"
+                    }
+                }
+
+                // Sleep
+                Column {
+                    spacing: 4
+                    Rectangle {
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        width: 36
+                        height: 36
+                        radius: 18
+                        color: sleepMouse.containsMouse ? "#1e1e2e" : "transparent"
+
+                        Text {
+                            anchors.centerIn: parent
+                            text: "\u263D"
+                            font.pixelSize: 16
+                            color: "#8080a0"
+                        }
+
+                        MouseArea {
+                            id: sleepMouse
+                            anchors.fill: parent
+                            hoverEnabled: true
+                            cursorShape: Qt.PointingHandCursor
+                            onClicked: sddm.suspend()
+                        }
+                    }
+                    Text {
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        text: "Suspender"
+                        font.pixelSize: 10
+                        font.family: "Inter"
+                        color: "#6b6b80"
                     }
                 }
             }
         }
     }
 
-    // Clock (top right)
-    Text {
-        anchors.top: parent.top
-        anchors.right: parent.right
+    // Session selector (bottom-left)
+    Row {
+        anchors.left: parent.left
+        anchors.bottom: parent.bottom
         anchors.margins: 32
-        text: Qt.formatDateTime(new Date(), "HH:mm")
-        font.pixelSize: 48
-        font.weight: Font.Light
-        color: "#ffffff"
-        opacity: 0.8
+        spacing: 8
 
-        Timer {
-            interval: 30000
-            running: true
-            repeat: true
-            onTriggered: parent.text = Qt.formatDateTime(new Date(), "HH:mm")
+        Text {
+            text: "Sessão:"
+            font.pixelSize: 12
+            font.family: "Inter"
+            color: "#6b6b80"
+            anchors.verticalCenter: parent.verticalCenter
+        }
+
+        ComboBox {
+            id: sessionSelector
+            width: 160
+            height: 32
+            model: sessionModel
+            textRole: "name"
+            currentIndex: sessionModel.lastIndex
+
+            background: Rectangle {
+                radius: 6
+                color: "#14141f"
+                border.color: "#2a2a3e"
+                border.width: 1
+            }
+
+            contentItem: Text {
+                leftPadding: 10
+                text: sessionSelector.displayText
+                font.pixelSize: 12
+                font.family: "Inter"
+                color: "#c0c0d0"
+                verticalAlignment: Text.AlignVCenter
+            }
         }
     }
 
-    // Date (below clock)
+    // FexOS branding (bottom-right)
     Text {
-        anchors.top: parent.top
         anchors.right: parent.right
-        anchors.topMargin: 88
-        anchors.rightMargin: 32
-        text: Qt.formatDateTime(new Date(), "dddd, d MMMM yyyy")
-        font.pixelSize: 14
-        color: "#8b8da3"
-        opacity: 0.8
+        anchors.bottom: parent.bottom
+        anchors.margins: 32
+        text: "FexOS 6.0"
+        font.pixelSize: 11
+        font.family: "Inter"
+        color: "#3d3d50"
     }
 
-    // Login function
+    // Login logic
     function doLogin() {
+        loginFailed = false
         if (passwordField.text === "") {
-            errorMsg.text = "Digite sua senha"
+            loginFailed = true
             return
         }
-        errorMsg.text = ""
-        sddm.login(currentUser, passwordField.text, currentIndex)
+        sddm.login(currentUser, passwordField.text, sessionSelector.currentIndex)
     }
 
-    // Focus password on load
+    // Focus on load
     Component.onCompleted: {
         passwordField.forceActiveFocus()
     }
 
-    // Handle login failure
+    // Login failure handler
     Connections {
         target: sddm
         function onLoginFailed() {
-            errorMsg.text = "Senha incorreta"
+            loginFailed = true
             passwordField.text = ""
             passwordField.forceActiveFocus()
         }

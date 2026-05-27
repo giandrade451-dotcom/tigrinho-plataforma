@@ -1,2 +1,3 @@
 #!/bin/bash
-exec python3 /opt/fexnav/fexnav.py "$@"
+# FexNav — Native GTK4+WebKitGTK Browser
+exec python3 /opt/fexnav/fexnav_window.py "$@"
