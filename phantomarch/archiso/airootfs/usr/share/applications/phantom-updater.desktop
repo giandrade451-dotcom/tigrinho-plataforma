@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=PhantomUpdater
+GenericName=System Updater
+Comment=FexOS Auto-Update — Atualização do sistema
+Exec=kitty -e phantom-updater
+Icon=system-software-update
+Terminal=false
+Categories=System;
+Keywords=update;atualizar;upgrade;

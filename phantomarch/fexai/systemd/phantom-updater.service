@@ -1,0 +1,13 @@
+[Unit]
+Description=PhantomUpdater — FexOS Auto Update Daemon
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/share/phantom/scripts/phantom-updater.sh --daemon
+Restart=on-failure
+RestartSec=60
+
+[Install]
+WantedBy=multi-user.target

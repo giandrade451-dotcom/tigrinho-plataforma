@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0a12"/>
+      <stop offset="50%" style="stop-color:#12101f"/>
+      <stop offset="100%" style="stop-color:#0a0a12"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#bd93f9;stop-opacity:0.3"/>
+      <stop offset="100%" style="stop-color:#00fff7;stop-opacity:0.1"/>
+    </linearGradient>
+    <radialGradient id="centerGlow" cx="50%" cy="50%" r="40%">
+      <stop offset="0%" style="stop-color:#bd93f9;stop-opacity:0.08"/>
+      <stop offset="100%" style="stop-color:#0a0a12;stop-opacity:0"/>
+    </radialGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="1920" height="1080" fill="url(#bg)"/>
+  <!-- Center glow -->
+  <ellipse cx="960" cy="540" rx="600" ry="400" fill="url(#centerGlow)"/>
+  <!-- Grid lines -->
+  <g stroke="rgba(189,147,249,0.04)" stroke-width="1">
+    <line x1="0" y1="270" x2="1920" y2="270"/>
+    <line x1="0" y1="540" x2="1920" y2="540"/>
+    <line x1="0" y1="810" x2="1920" y2="810"/>
+    <line x1="480" y1="0" x2="480" y2="1080"/>
+    <line x1="960" y1="0" x2="960" y2="1080"/>
+    <line x1="1440" y1="0" x2="1440" y2="1080"/>
+  </g>
+  <!-- Decorative circles -->
+  <circle cx="960" cy="540" r="300" fill="none" stroke="rgba(189,147,249,0.06)" stroke-width="1"/>
+  <circle cx="960" cy="540" r="200" fill="none" stroke="rgba(0,255,247,0.04)" stroke-width="1"/>
+  <circle cx="960" cy="540" r="100" fill="none" stroke="rgba(189,147,249,0.08)" stroke-width="1"/>
+  <!-- Logo -->
+  <text x="960" y="500" font-family="Inter, Arial, sans-serif" font-size="72" font-weight="900" fill="url(#glow)" text-anchor="middle" letter-spacing="4">PhantomArch</text>
+  <text x="960" y="560" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="300" fill="#6b6d80" text-anchor="middle">Performance. Security. Freedom.</text>
+  <!-- Neon accent dots -->
+  <circle cx="860" cy="580" r="3" fill="#bd93f9" opacity="0.6"/>
+  <circle cx="1060" cy="580" r="3" fill="#00fff7" opacity="0.6"/>
+  <!-- Corner accents -->
+  <path d="M 30 30 L 80 30 M 30 30 L 30 80" stroke="#bd93f9" stroke-width="2" opacity="0.3"/>
+  <path d="M 1890 30 L 1840 30 M 1890 30 L 1890 80" stroke="#00fff7" stroke-width="2" opacity="0.3"/>
+  <path d="M 30 1050 L 80 1050 M 30 1050 L 30 1000" stroke="#00fff7" stroke-width="2" opacity="0.3"/>
+  <path d="M 1890 1050 L 1840 1050 M 1890 1050 L 1890 1000" stroke="#bd93f9" stroke-width="2" opacity="0.3"/>
+</svg>

@@ -1,0 +1,15 @@
+[Unit]
+Description=PhantomArch First Boot Onboarding
+After=multi-user.target
+ConditionPathExists=!/var/lib/phantomarch/.onboarding-done
+
+[Service]
+Type=oneshot
+ExecStart=/usr/share/phantom/scripts/phantom-onboarding.sh
+StandardInput=tty
+StandardOutput=tty
+TTYPath=/dev/tty1
+TTYReset=yes
+
+[Install]
+WantedBy=multi-user.target

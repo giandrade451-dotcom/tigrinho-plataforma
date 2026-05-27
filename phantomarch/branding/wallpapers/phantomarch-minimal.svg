@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="minBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f0f1a"/>
+      <stop offset="100%" style="stop-color:#08080e"/>
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="1920" height="1080" fill="url(#minBg)"/>
+  <!-- Single accent line -->
+  <rect x="860" y="540" width="200" height="2" rx="1" fill="#bd93f9" opacity="0.6"/>
+  <!-- Logo minimal -->
+  <text x="960" y="510" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="600" fill="#ffffff" text-anchor="middle" letter-spacing="8" opacity="0.7">PHANTOMARCH</text>
+  <!-- Bottom accent -->
+  <circle cx="960" cy="600" r="3" fill="#00fff7" opacity="0.4"/>
+</svg>
