@@ -1,0 +1,11 @@
+{
+  "pack": {
+    "pack_format": 46,
+    "supported_formats": [46, 55],
+    "description": [
+      { "text": "Fex Private", "bold": true, "color": "white" },
+      { "text": " — PvP pack ", "color": "gray" },
+      { "text": "1.21.4", "color": "aqua" }
+    ]
+  }
+}

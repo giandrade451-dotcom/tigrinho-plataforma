@@ -1,0 +1,10 @@
+dist/*.mcpack
+dist/*.mcaddon
+dist/*.zip
+java/mods/*/build/
+java/mods/*/.gradle/
+java/mods/*/run/
+java/mods/*/.idea/
+java/mods/*/*.iml
+__pycache__/
+*.pyc

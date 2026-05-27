@@ -1,0 +1,20 @@
+{
+  "resource_pack_name": "fex_private",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "wood_sword": { "textures": "textures/items/wood_sword" },
+    "stone_sword": { "textures": "textures/items/stone_sword" },
+    "iron_sword": { "textures": "textures/items/iron_sword" },
+    "gold_sword": { "textures": "textures/items/gold_sword" },
+    "diamond_sword": { "textures": "textures/items/diamond_sword" },
+    "netherite_sword": { "textures": "textures/items/netherite_sword" },
+    "mace": { "textures": "textures/items/mace" },
+    "bow_standby": { "textures": "textures/items/bow_standby" },
+    "bow_pulling_0": { "textures": "textures/items/bow_pulling_0" },
+    "bow_pulling_1": { "textures": "textures/items/bow_pulling_1" },
+    "bow_pulling_2": { "textures": "textures/items/bow_pulling_2" },
+    "arrow": { "textures": "textures/items/arrow" },
+    "totem": { "textures": "textures/items/totem" },
+    "shield": { "textures": "textures/items/shield" }
+  }
+}
