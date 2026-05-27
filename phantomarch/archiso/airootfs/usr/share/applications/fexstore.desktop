@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=FexStore
+GenericName=App Store
+Comment=Loja de apps e jogos do FexOS
+Exec=fexstore --gui
+Icon=system-software-install
+Terminal=false
+Categories=System;PackageManager;
+Keywords=store;loja;apps;games;jogos;install;
+StartupWMClass=FexStore

@@ -1,0 +1,2 @@
+#!/bin/bash
+exec /opt/fexos/scripts/fex-security-v6.sh "$@"

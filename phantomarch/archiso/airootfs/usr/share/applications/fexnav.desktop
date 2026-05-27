@@ -3,21 +3,11 @@ Type=Application
 Version=1.0
 Name=FexNav
 GenericName=Web Browser
-Comment=FexNav — FexOS Web Browser
-Exec=fexnav %U
-Icon=/opt/fexnav/icons/fexnav.svg
+Comment=Navegador oficial FexOS — Rápido, com IA, sem Electron
+Exec=fexnav %u
+Icon=web-browser
 Terminal=false
 Categories=Network;WebBrowser;
-MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;x-scheme-handler/ftp;
-StartupNotify=true
-StartupWMClass=fexnav
-Keywords=browser;internet;web;fexnav;navegador;
-Actions=new-window;new-private-window;
-
-[Desktop Action new-window]
-Name=Nova Janela
-Exec=fexnav --new-window
-
-[Desktop Action new-private-window]
-Name=Janela Privada
-Exec=fexnav --private
+Keywords=browser;internet;web;navegador;
+MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;
+StartupWMClass=FexNav

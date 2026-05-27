@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=GameFPS Mode
+GenericName=Gaming Performance
+Comment=Ativar/desativar modo gaming extremo — FexOS
+Exec=kitty -e gamefps-mode toggle
+Icon=input-gaming
+Terminal=false
+Categories=Game;System;
+Keywords=game;fps;performance;gaming;turbo;

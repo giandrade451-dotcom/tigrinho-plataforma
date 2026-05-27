@@ -1,0 +1,9 @@
+[SddmGreeterTheme]
+Name=FexOS V6
+Description=FexOS Premium Login — Zero Lag, Modern, No External Dependencies
+Author=FexOS Team
+Type=sddm-theme
+Version=6.0
+Screenshot=preview.png
+MainScript=Main.qml
+TranslationsDirectory=translations

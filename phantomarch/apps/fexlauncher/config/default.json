@@ -1,0 +1,34 @@
+{
+    "launcher_version": "6.0",
+    "minecraft_versions_url": "https://piston-meta.mojang.com/mc/game/version_manifest_v2.json",
+    "auto_update": true,
+    "theme": "dark",
+    "language": "pt_BR",
+    "ram_min": "512M",
+    "ram_max": "4G",
+    "java_path": "java",
+    "jvm_args": [
+        "-XX:+UseG1GC",
+        "-XX:+ParallelRefProcEnabled",
+        "-XX:MaxGCPauseMillis=200",
+        "-XX:+UnlockExperimentalVMOptions",
+        "-XX:+DisableExplicitGC",
+        "-XX:G1NewSizePercent=30",
+        "-XX:G1MaxNewSizePercent=40",
+        "-XX:G1HeapRegionSize=8M",
+        "-XX:G1ReservePercent=20"
+    ],
+    "supported_versions": {
+        "min": "1.8.8",
+        "max": "latest"
+    },
+    "features": {
+        "offline_mode": true,
+        "microsoft_auth": true,
+        "custom_skins": true,
+        "custom_capes": true,
+        "mods_support": true,
+        "texture_packs": true,
+        "auto_java_install": true
+    }
+}

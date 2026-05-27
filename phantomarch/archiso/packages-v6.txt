@@ -1,0 +1,59 @@
+# FexOS V6 — Additional Packages
+# ═══════════════════════════════════════════
+
+# === FexLauncher Dependencies ===
+jre-openjdk
+jdk-openjdk
+java-runtime-common
+
+# === FexNav Dependencies (GTK4 + WebKit) ===
+gtk4
+libadwaita
+webkit2gtk-5.0
+python-gobject
+
+# === FexStore Dependencies (Flatpak) ===
+flatpak
+python-pyqt6
+python-pip
+
+# === GameFPS Mode ===
+gamemode
+lib32-gamemode
+mangohud
+lib32-mangohud
+gamescope
+
+# === Task Manager / System Monitor ===
+lm_sensors
+bc
+inotify-tools
+htop
+nvtop
+
+# === Security V6 ===
+clamav
+inotify-tools
+firejail
+apparmor
+rkhunter
+
+# === Performance / No-Lag ===
+irqbalance
+thermald
+power-profiles-daemon
+earlyoom
+
+# === Interface Premium ===
+inter-font
+noto-fonts
+noto-fonts-cjk
+papirus-icon-theme
+grimblast-git
+
+# === Build System ===
+archiso
+squashfs-tools
+dosfstools
+libisoburn
+mkinitcpio
