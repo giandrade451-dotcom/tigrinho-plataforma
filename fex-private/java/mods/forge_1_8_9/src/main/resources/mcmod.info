@@ -1,0 +1,10 @@
+[
+{
+  "modid": "fexprivate",
+  "name": "Fex Private",
+  "description": "Cliente PvP para 1.8.9: FPS, CPS, Keystrokes, TNT Timer, Hitbox, Reach.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "authorList": ["Fex Private"]
+}
+]

@@ -1,0 +1,44 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Fex Private — PvP",
+    "description": "§lFex Private§r\nPack PvP preto e branco — espadas slim, foice, totem margarina, lãs com kanji.\n§7Versão 1.26.21",
+    "uuid": "07c20bb8-e6ff-408b-8b84-480c5a6d67ab",
+    "version": [1, 0, 0],
+    "min_engine_version": [1, 21, 0]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "a255356d-a8bb-4394-828f-0b19fc906bc2",
+      "version": [1, 0, 0]
+    }
+  ],
+  "subpacks": [
+    {
+      "folder_name": "default",
+      "name": "Padrão (Preto/Branco)",
+      "memory_tier": 0
+    },
+    {
+      "folder_name": "red",
+      "name": "Vermelho Sangue",
+      "memory_tier": 0
+    },
+    {
+      "folder_name": "blue",
+      "name": "Azul Gelo",
+      "memory_tier": 0
+    },
+    {
+      "folder_name": "gold",
+      "name": "Dourado",
+      "memory_tier": 0
+    }
+  ],
+  "metadata": {
+    "authors": ["Fex Private"],
+    "license": "Proprietary",
+    "product_type": "addon"
+  }
+}

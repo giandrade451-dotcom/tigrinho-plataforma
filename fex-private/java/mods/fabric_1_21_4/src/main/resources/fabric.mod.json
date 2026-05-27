@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id": "fexprivate",
+  "version": "${version}",
+  "name": "Fex Private",
+  "description": "Cliente PvP: FPS, CPS, Keystrokes, TNT Timer, Hitbox, Reach.",
+  "authors": ["Fex Private"],
+  "license": "Proprietary",
+  "environment": "client",
+  "entrypoints": {
+    "client": ["com.fex.fexprivate.FexPrivateClient"]
+  },
+  "mixins": ["fexprivate.mixins.json"],
+  "depends": {
+    "fabricloader": ">=0.16",
+    "minecraft": ">=1.21.4",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}

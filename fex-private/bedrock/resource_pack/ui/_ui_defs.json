@@ -1,0 +1,6 @@
+{
+  "ui_defs": [
+    "ui/fex_ui.json",
+    "ui/pause_screen.json"
+  ]
+}

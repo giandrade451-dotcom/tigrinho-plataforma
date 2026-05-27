@@ -1,0 +1,25 @@
+{
+  "resource_pack_name": "fex_private",
+  "texture_name": "atlas.terrain",
+  "padding": 8,
+  "num_mip_levels": 4,
+  "texture_data": {
+    "wool_colored_white": { "textures": "textures/blocks/wool_colored_white" },
+    "wool_colored_orange": { "textures": "textures/blocks/wool_colored_orange" },
+    "wool_colored_magenta": { "textures": "textures/blocks/wool_colored_magenta" },
+    "wool_colored_light_blue": { "textures": "textures/blocks/wool_colored_light_blue" },
+    "wool_colored_yellow": { "textures": "textures/blocks/wool_colored_yellow" },
+    "wool_colored_lime": { "textures": "textures/blocks/wool_colored_lime" },
+    "wool_colored_pink": { "textures": "textures/blocks/wool_colored_pink" },
+    "wool_colored_gray": { "textures": "textures/blocks/wool_colored_gray" },
+    "wool_colored_light_gray": { "textures": "textures/blocks/wool_colored_light_gray" },
+    "wool_colored_silver": { "textures": "textures/blocks/wool_colored_light_gray" },
+    "wool_colored_cyan": { "textures": "textures/blocks/wool_colored_cyan" },
+    "wool_colored_purple": { "textures": "textures/blocks/wool_colored_purple" },
+    "wool_colored_blue": { "textures": "textures/blocks/wool_colored_blue" },
+    "wool_colored_brown": { "textures": "textures/blocks/wool_colored_brown" },
+    "wool_colored_green": { "textures": "textures/blocks/wool_colored_green" },
+    "wool_colored_red": { "textures": "textures/blocks/wool_colored_red" },
+    "wool_colored_black": { "textures": "textures/blocks/wool_colored_black" }
+  }
+}

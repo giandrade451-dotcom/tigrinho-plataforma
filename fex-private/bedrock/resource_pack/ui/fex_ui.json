@@ -1,0 +1,28 @@
+{
+  "namespace": "fex_ui",
+
+  "fex_button_label@common.label": {
+    "size": ["100%", "default"],
+    "text": "§lFex Client§r",
+    "color": "$button_text_color",
+    "anchor_from": "center",
+    "anchor_to": "center"
+  },
+
+  "fex_button@common.button": {
+    "$pressed_button_name": "button.menu_exit",
+    "size": [180, 32],
+    "$button_content": "fex_ui.fex_button_label",
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_select",
+        "to_button_id": "button.menu_exit",
+        "mapping_type": "pressed"
+      }
+    ],
+    "controls": [
+      { "default@common.button_borderless_dark": {} },
+      { "label@fex_ui.fex_button_label": {} }
+    ]
+  }
+}
