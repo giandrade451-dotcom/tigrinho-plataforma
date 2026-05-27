@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Task Manager
+GenericName=System Monitor
+Comment=Monitor de RAM, CPU, GPU e processos — FexOS
+Exec=kitty -e fex-taskmanager
+Icon=utilities-system-monitor
+Terminal=false
+Categories=System;Monitor;
+Keywords=task;ram;cpu;gpu;processos;monitor;

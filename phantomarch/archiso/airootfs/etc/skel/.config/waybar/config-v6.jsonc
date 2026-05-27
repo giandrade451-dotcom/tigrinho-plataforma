@@ -1,0 +1,139 @@
+{
+    "layer": "top",
+    "position": "bottom",
+    "height": 48,
+    "spacing": 0,
+    "margin-left": 8,
+    "margin-right": 8,
+    "margin-bottom": 6,
+
+    "modules-left": [
+        "custom/launcher",
+        "hyprland/workspaces",
+        "hyprland/window"
+    ],
+    "modules-center": [
+        "wlr/taskbar"
+    ],
+    "modules-right": [
+        "custom/gamefps",
+        "tray",
+        "pulseaudio",
+        "network",
+        "cpu",
+        "memory",
+        "custom/gpu",
+        "battery",
+        "clock",
+        "custom/power"
+    ],
+
+    "custom/launcher": {
+        "format": "⚡",
+        "tooltip": "Menu FexOS",
+        "on-click": "wofi --show drun -S drun"
+    },
+
+    "hyprland/workspaces": {
+        "format": "{icon}",
+        "on-click": "activate",
+        "persistent-workspaces": {
+            "*": 4
+        },
+        "format-icons": {
+            "1": "●",
+            "2": "●",
+            "3": "●",
+            "4": "●",
+            "active": "◉",
+            "default": "○"
+        }
+    },
+
+    "hyprland/window": {
+        "format": "{}",
+        "max-length": 40,
+        "rewrite": {
+            "(.*) — FexNav": "🌐 $1",
+            "(.*) — FexCode": "💻 $1",
+            "(.*) - Minecraft (.*)": "⛏️ $1"
+        }
+    },
+
+    "wlr/taskbar": {
+        "format": "{icon}",
+        "icon-size": 24,
+        "spacing": 4,
+        "on-click": "activate",
+        "on-click-right": "close",
+        "tooltip-format": "{title}"
+    },
+
+    "custom/gamefps": {
+        "exec": "if [ -f /tmp/fexos-gamefps-active ]; then echo '{\"text\": \"⚡ FPS\", \"class\": \"active\"}'; else echo '{\"text\": \"\", \"class\": \"\"}'; fi",
+        "return-type": "json",
+        "interval": 5,
+        "on-click": "gamefps-mode toggle"
+    },
+
+    "tray": {
+        "icon-size": 18,
+        "spacing": 8
+    },
+
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-muted": "🔇",
+        "format-icons": {
+            "default": ["🔈", "🔉", "🔊"]
+        },
+        "on-click": "pavucontrol",
+        "tooltip-format": "{desc}"
+    },
+
+    "network": {
+        "format-wifi": "📶 {signalStrength}%",
+        "format-ethernet": "🔌",
+        "format-disconnected": "❌",
+        "tooltip-format-wifi": "{essid} ({signalStrength}%)",
+        "on-click": "nm-connection-editor"
+    },
+
+    "cpu": {
+        "format": "💻 {usage}%",
+        "interval": 3,
+        "on-click": "kitty -e fex-taskmanager"
+    },
+
+    "memory": {
+        "format": "🧠 {percentage}%",
+        "interval": 5,
+        "on-click": "kitty -e fex-taskmanager"
+    },
+
+    "custom/gpu": {
+        "exec": "if command -v nvidia-smi &>/dev/null; then nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits 2>/dev/null | awk '{print \"🎮 \" $1 \"%\"}'; else echo ''; fi",
+        "interval": 5,
+        "on-click": "kitty -e fex-taskmanager"
+    },
+
+    "battery": {
+        "format": "{icon} {capacity}%",
+        "format-icons": ["🪫", "🔋", "🔋", "🔋", "🔋"],
+        "format-charging": "⚡ {capacity}%",
+        "format-full": "🔋 Full",
+        "interval": 30
+    },
+
+    "clock": {
+        "format": "{:%H:%M}",
+        "format-alt": "{:%A, %d %B %Y}",
+        "tooltip-format": "<tt>{calendar}</tt>"
+    },
+
+    "custom/power": {
+        "format": "⏻",
+        "tooltip": "Energia",
+        "on-click": "wlogout"
+    }
+}

@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=FexLauncher
+GenericName=Minecraft Launcher
+Comment=Launcher oficial de Minecraft para FexOS — Pirata e Original
+Exec=fexlauncher --gui
+Icon=minecraft-launcher
+Terminal=false
+Categories=Game;
+Keywords=minecraft;game;launcher;pirata;
+StartupWMClass=FexLauncher

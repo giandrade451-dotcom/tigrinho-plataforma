@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0a1a"/>
+      <stop offset="40%" style="stop-color:#12102a"/>
+      <stop offset="70%" style="stop-color:#0d1525"/>
+      <stop offset="100%" style="stop-color:#0a0a12"/>
+    </linearGradient>
+    <radialGradient id="glow1" cx="70%" cy="30%" r="25%">
+      <stop offset="0%" style="stop-color:#bd93f9;stop-opacity:0.2"/>
+      <stop offset="100%" style="stop-color:#bd93f9;stop-opacity:0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="20%" cy="65%" r="20%">
+      <stop offset="0%" style="stop-color:#00fff7;stop-opacity:0.1"/>
+      <stop offset="100%" style="stop-color:#00fff7;stop-opacity:0"/>
+    </radialGradient>
+    <linearGradient id="btn" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#bd93f9"/>
+      <stop offset="100%" style="stop-color:#00fff7"/>
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-opacity="0.4" flood-color="#000"/>
+    </filter>
+  </defs>
+  <!-- Background -->
+  <rect width="1920" height="1080" fill="url(#bg)"/>
+  <rect width="1920" height="1080" fill="url(#glow1)"/>
+  <rect width="1920" height="1080" fill="url(#glow2)"/>
+  
+  <!-- Login Panel -->
+  <rect x="750" y="260" width="420" height="520" rx="24" fill="rgba(15,15,26,0.88)" stroke="rgba(189,147,249,0.2)" stroke-width="1" filter="url(#shadow)"/>
+  
+  <!-- FexOS Logo -->
+  <text x="960" y="330" text-anchor="middle" fill="#bd93f9" font-family="Inter, sans-serif" font-size="32" font-weight="800">⚡ FexOS</text>
+  <text x="960" y="356" text-anchor="middle" fill="#6b6d80" font-family="Inter, sans-serif" font-size="12">Ghost in the Machine</text>
+  
+  <!-- Avatar -->
+  <circle cx="960" cy="430" r="40" fill="rgba(189,147,249,0.2)" stroke="rgba(189,147,249,0.4)" stroke-width="2"/>
+  <text x="960" y="442" text-anchor="middle" fill="#bd93f9" font-family="Inter, sans-serif" font-size="28" font-weight="700">P</text>
+  
+  <!-- Username -->
+  <text x="960" y="500" text-anchor="middle" fill="#ffffff" font-family="Inter, sans-serif" font-size="18" font-weight="600">phantom</text>
+  
+  <!-- Password field -->
+  <rect x="790" y="530" width="340" height="48" rx="12" fill="rgba(26,26,46,0.8)" stroke="rgba(189,147,249,0.6)" stroke-width="2"/>
+  <text x="960" y="560" text-anchor="middle" fill="#6b6d80" font-family="Inter, sans-serif" font-size="14">●●●●●●●●</text>
+  
+  <!-- Login button -->
+  <rect x="790" y="600" width="340" height="48" rx="12" fill="url(#btn)"/>
+  <text x="960" y="630" text-anchor="middle" fill="#0a0a12" font-family="Inter, sans-serif" font-size="15" font-weight="700">Entrar</text>
+  
+  <!-- Power buttons -->
+  <text x="920" y="720" text-anchor="middle" fill="#6b6d80" font-family="Inter, sans-serif" font-size="12">⏻ Desligar</text>
+  <text x="1020" y="720" text-anchor="middle" fill="#6b6d80" font-family="Inter, sans-serif" font-size="12">🔄 Reiniciar</text>
+  
+  <!-- Clock -->
+  <text x="1840" y="60" text-anchor="end" fill="rgba(255,255,255,0.8)" font-family="Inter, sans-serif" font-size="48" font-weight="300">14:32</text>
+  <text x="1840" y="88" text-anchor="end" fill="#8b8da3" font-family="Inter, sans-serif" font-size="14">domingo, 25 maio 2026</text>
+</svg>
