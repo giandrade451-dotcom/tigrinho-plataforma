@@ -1,0 +1,10 @@
+[SDD Theme]
+Name=PhantomArch V5
+Description=FexOS Premium Login — Futuristic Gamer/Dev
+Author=FexOS Team
+Type=sddm-theme
+Version=5.0
+Website=https://fexos.io
+Screenshot=preview.png
+MainScript=Main.qml
+TranslationsDirectory=translations

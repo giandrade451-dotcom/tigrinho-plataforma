@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=FexOS V5 Phantom
+Description=FexOS Premium Boot Animation — Futuristic Neon
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/phantom-v5
+ScriptFile=/usr/share/plymouth/themes/phantom-v5/phantom-v5.script

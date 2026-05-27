@@ -1,0 +1,134 @@
+{
+    "layer": "top",
+    "position": "bottom",
+    "height": 42,
+    "spacing": 0,
+    "margin-bottom": 6,
+    "margin-left": 12,
+    "margin-right": 12,
+
+    "modules-left": [
+        "custom/launcher",
+        "hyprland/workspaces",
+        "hyprland/window"
+    ],
+    "modules-center": [
+        "wlr/taskbar"
+    ],
+    "modules-right": [
+        "tray",
+        "custom/updates",
+        "pulseaudio",
+        "network",
+        "bluetooth",
+        "battery",
+        "cpu",
+        "memory",
+        "clock",
+        "custom/power"
+    ],
+
+    "custom/launcher": {
+        "format": " ⚡ ",
+        "tooltip": "Menu Iniciar",
+        "on-click": "wofi --show drun -I -s ~/.config/wofi/style-v5.css"
+    },
+
+    "hyprland/workspaces": {
+        "format": "{icon}",
+        "format-icons": {
+            "1": "●",
+            "2": "●",
+            "3": "●",
+            "4": "●",
+            "5": "●",
+            "active": "◉",
+            "default": "○"
+        },
+        "on-scroll-up": "hyprctl dispatch workspace e+1",
+        "on-scroll-down": "hyprctl dispatch workspace e-1"
+    },
+
+    "hyprland/window": {
+        "format": "{}",
+        "max-length": 40,
+        "separate-outputs": true
+    },
+
+    "wlr/taskbar": {
+        "format": "{icon}",
+        "icon-size": 20,
+        "spacing": 4,
+        "on-click": "activate",
+        "on-click-right": "close",
+        "tooltip-format": "{title}"
+    },
+
+    "custom/updates": {
+        "format": "{}",
+        "exec": "UPDATES=$(pacman -Qu 2>/dev/null | wc -l); [ $UPDATES -gt 0 ] && echo \"⬆ $UPDATES\"",
+        "interval": 3600,
+        "on-click": "kitty -e phantom-updater",
+        "tooltip": "Atualizações disponíveis"
+    },
+
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-muted": "🔇",
+        "format-icons": {
+            "default": ["🔈", "🔉", "🔊"]
+        },
+        "on-click": "pavucontrol",
+        "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +2%",
+        "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -2%"
+    },
+
+    "network": {
+        "format-wifi": "📶 {signalStrength}%",
+        "format-ethernet": "🌐",
+        "format-disconnected": "❌",
+        "tooltip-format-wifi": "{essid} ({signalStrength}%)",
+        "on-click": "nm-connection-editor"
+    },
+
+    "bluetooth": {
+        "format": "🔵",
+        "format-disabled": "",
+        "format-connected": "🔵 {device_alias}",
+        "on-click": "blueman-manager"
+    },
+
+    "battery": {
+        "format": "{icon} {capacity}%",
+        "format-charging": "⚡ {capacity}%",
+        "format-icons": ["🪫", "🔋", "🔋", "🔋", "🔋"],
+        "states": {
+            "warning": 20,
+            "critical": 10
+        }
+    },
+
+    "cpu": {
+        "format": "💻 {usage}%",
+        "interval": 3,
+        "on-click": "kitty -e htop"
+    },
+
+    "memory": {
+        "format": "🧠 {percentage}%",
+        "interval": 5,
+        "on-click": "kitty -e htop"
+    },
+
+    "clock": {
+        "format": "🕐 {:%H:%M}",
+        "format-alt": "📅 {:%d/%m/%Y}",
+        "tooltip-format": "<tt>{calendar}</tt>"
+    },
+
+    "custom/power": {
+        "format": " ⏻ ",
+        "tooltip": "Desligar/Reiniciar",
+        "on-click": "wlogout -p layer-shell"
+    }
+}

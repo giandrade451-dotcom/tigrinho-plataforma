@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="loginBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0a12"/>
+      <stop offset="100%" style="stop-color:#12101f"/>
+    </linearGradient>
+    <linearGradient id="btnGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#bd93f9"/>
+      <stop offset="100%" style="stop-color:#00fff7"/>
+    </linearGradient>
+    <filter id="blur10">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="10"/>
+    </filter>
+  </defs>
+  <!-- Background (blurred wallpaper simulation) -->
+  <rect width="1920" height="1080" fill="url(#loginBg)"/>
+  <!-- Blurred light spots -->
+  <circle cx="400" cy="300" r="200" fill="#bd93f9" opacity="0.05" filter="url(#blur10)"/>
+  <circle cx="1500" cy="700" r="250" fill="#00fff7" opacity="0.03" filter="url(#blur10)"/>
+  <!-- Clock top-left -->
+  <text x="50" y="80" font-family="Inter, Arial, sans-serif" font-size="56" font-weight="200" fill="#ffffff" opacity="0.9">14:32</text>
+  <text x="50" y="110" font-family="Inter, Arial, sans-serif" font-size="16" fill="#8b8da3">Segunda-feira, 27 de Maio</text>
+  <!-- Login card -->
+  <rect x="770" y="280" width="380" height="480" rx="24" fill="rgba(15,15,25,0.85)" stroke="rgba(189,147,249,0.2)" stroke-width="1"/>
+  <!-- Avatar circle -->
+  <circle cx="960" cy="380" r="48" fill="rgba(189,147,249,0.15)" stroke="#bd93f9" stroke-width="2"/>
+  <text x="960" y="395" font-family="Arial" font-size="36" fill="#bd93f9" text-anchor="middle">👤</text>
+  <!-- Username -->
+  <text x="960" y="460" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="600" fill="#ffffff" text-anchor="middle">phantom</text>
+  <text x="960" y="488" font-family="Inter, Arial, sans-serif" font-size="13" fill="#8b8da3" text-anchor="middle">Bem-vindo de volta</text>
+  <!-- Password field -->
+  <rect x="820" y="520" width="280" height="48" rx="12" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+  <text x="840" y="549" font-family="Inter, Arial, sans-serif" font-size="14" fill="#6b6d80">Senha</text>
+  <!-- Login button -->
+  <rect x="820" y="588" width="280" height="48" rx="12" fill="url(#btnGrad)"/>
+  <text x="960" y="617" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="600" fill="#0a0a12" text-anchor="middle">Entrar</text>
+  <!-- PIN link -->
+  <text x="960" y="665" font-family="Inter, Arial, sans-serif" font-size="12" fill="#bd93f9" text-anchor="middle" opacity="0.7">Usar PIN</text>
+  <!-- Bottom buttons -->
+  <circle cx="900" cy="1020" r="20" fill="rgba(255,255,255,0.08)"/>
+  <text x="900" y="1026" font-family="Arial" font-size="14" fill="#ff5555" text-anchor="middle">⏻</text>
+  <circle cx="960" cy="1020" r="20" fill="rgba(255,255,255,0.08)"/>
+  <text x="960" y="1026" font-family="Arial" font-size="14" fill="#f1fa8c" text-anchor="middle">⟳</text>
+  <circle cx="1020" cy="1020" r="20" fill="rgba(255,255,255,0.08)"/>
+  <text x="1020" y="1026" font-family="Arial" font-size="14" fill="#8b8da3" text-anchor="middle">⚙</text>
+  <!-- Branding -->
+  <text x="1870" y="1060" font-family="Inter, Arial, sans-serif" font-size="11" fill="#6b6d80" text-anchor="end">FexOS 5.0 Phantom</text>
+</svg>

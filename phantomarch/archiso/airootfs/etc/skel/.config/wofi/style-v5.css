@@ -1,0 +1,73 @@
+/* FexOS V5 — Wofi Premium Menu */
+/* Inspired by Windows 11 Start Menu */
+
+window {
+    margin: 0;
+    border: 1px solid rgba(189, 147, 249, 0.2);
+    border-radius: 20px;
+    background-color: rgba(10, 10, 18, 0.92);
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+}
+
+#input {
+    margin: 16px;
+    padding: 12px 18px;
+    border: 1px solid rgba(189, 147, 249, 0.2);
+    border-radius: 12px;
+    color: #f8f8f2;
+    background-color: rgba(255, 255, 255, 0.06);
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+#input:focus {
+    border-color: rgba(189, 147, 249, 0.5);
+    background-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 8px rgba(189, 147, 249, 0.2);
+}
+
+#input image {
+    color: #bd93f9;
+}
+
+#inner-box {
+    margin: 0 12px 12px 12px;
+    border-radius: 12px;
+}
+
+#outer-box {
+    margin: 0;
+    padding: 0;
+}
+
+#scroll {
+    margin: 0;
+}
+
+#text {
+    margin: 0;
+    padding: 8px 12px;
+    color: #cdd6f4;
+}
+
+#entry {
+    margin: 2px 4px;
+    padding: 6px 8px;
+    border-radius: 10px;
+    transition: all 0.15s ease;
+}
+
+#entry:selected {
+    background-color: rgba(189, 147, 249, 0.15);
+    border: 1px solid rgba(189, 147, 249, 0.3);
+}
+
+#entry:hover {
+    background-color: rgba(255, 255, 255, 0.06);
+}
+
+#entry image {
+    margin-right: 10px;
+}

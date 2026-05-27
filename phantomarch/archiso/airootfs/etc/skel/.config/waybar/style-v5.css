@@ -1,0 +1,149 @@
+/* FexOS V5 — Waybar Premium Theme */
+/* Inspired by Windows 11 taskbar + gamer aesthetic */
+
+* {
+    font-family: "Inter", "JetBrains Mono", sans-serif;
+    font-size: 13px;
+    border: none;
+    border-radius: 0;
+    min-height: 0;
+}
+
+window#waybar {
+    background: rgba(10, 10, 18, 0.88);
+    border-radius: 16px;
+    border: 1px solid rgba(189, 147, 249, 0.15);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+}
+
+/* Modules */
+#custom-launcher {
+    font-size: 16px;
+    padding: 0 14px;
+    margin: 4px 2px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, rgba(189, 147, 249, 0.2), rgba(0, 255, 247, 0.1));
+    color: #bd93f9;
+    transition: all 0.2s ease;
+}
+
+#custom-launcher:hover {
+    background: linear-gradient(135deg, rgba(189, 147, 249, 0.4), rgba(0, 255, 247, 0.2));
+}
+
+#workspaces button {
+    padding: 0 6px;
+    margin: 4px 1px;
+    color: #6b6d80;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+#workspaces button.active {
+    color: #bd93f9;
+    background: rgba(189, 147, 249, 0.15);
+}
+
+#workspaces button:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+#window {
+    color: #cdd6f4;
+    padding: 0 12px;
+    opacity: 0.8;
+}
+
+#taskbar button {
+    padding: 0 4px;
+    margin: 4px 2px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+#taskbar button.active {
+    background: rgba(189, 147, 249, 0.2);
+    border-bottom: 2px solid #bd93f9;
+}
+
+#taskbar button:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Right modules */
+#pulseaudio,
+#network,
+#bluetooth,
+#battery,
+#cpu,
+#memory,
+#clock,
+#tray,
+#custom-updates {
+    padding: 0 10px;
+    margin: 4px 1px;
+    color: #cdd6f4;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+#pulseaudio:hover,
+#network:hover,
+#battery:hover,
+#cpu:hover,
+#memory:hover,
+#clock:hover,
+#custom-updates:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+#custom-updates {
+    color: #00fff7;
+}
+
+#battery.warning {
+    color: #f1fa8c;
+}
+
+#battery.critical {
+    color: #ff5555;
+    animation: pulse 1s infinite;
+}
+
+#cpu {
+    color: #50fa7b;
+}
+
+#memory {
+    color: #8be9fd;
+}
+
+#clock {
+    font-weight: 600;
+    color: #f8f8f2;
+}
+
+#custom-power {
+    padding: 0 12px;
+    margin: 4px 4px 4px 2px;
+    border-radius: 10px;
+    color: #ff5555;
+    transition: all 0.2s ease;
+}
+
+#custom-power:hover {
+    background: rgba(255, 85, 85, 0.2);
+}
+
+#tray {
+    padding: 0 8px;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}

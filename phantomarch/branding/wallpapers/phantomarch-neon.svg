@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="neonBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#050510"/>
+      <stop offset="30%" style="stop-color:#0d0a1a"/>
+      <stop offset="70%" style="stop-color:#0a0815"/>
+      <stop offset="100%" style="stop-color:#050510"/>
+    </linearGradient>
+    <linearGradient id="neonLine1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#bd93f9;stop-opacity:0"/>
+      <stop offset="50%" style="stop-color:#bd93f9;stop-opacity:0.8"/>
+      <stop offset="100%" style="stop-color:#bd93f9;stop-opacity:0"/>
+    </linearGradient>
+    <linearGradient id="neonLine2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#00fff7;stop-opacity:0"/>
+      <stop offset="50%" style="stop-color:#00fff7;stop-opacity:0.6"/>
+      <stop offset="100%" style="stop-color:#00fff7;stop-opacity:0"/>
+    </linearGradient>
+    <filter id="neonGlow">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="3"/>
+    </filter>
+  </defs>
+  <!-- Background -->
+  <rect width="1920" height="1080" fill="url(#neonBg)"/>
+  <!-- Perspective grid (vanishing point) -->
+  <g opacity="0.15">
+    <line x1="960" y1="540" x2="0" y2="1080" stroke="#bd93f9" stroke-width="0.5"/>
+    <line x1="960" y1="540" x2="480" y2="1080" stroke="#bd93f9" stroke-width="0.5"/>
+    <line x1="960" y1="540" x2="960" y2="1080" stroke="#bd93f9" stroke-width="0.5"/>
+    <line x1="960" y1="540" x2="1440" y2="1080" stroke="#bd93f9" stroke-width="0.5"/>
+    <line x1="960" y1="540" x2="1920" y2="1080" stroke="#bd93f9" stroke-width="0.5"/>
+    <line x1="960" y1="540" x2="0" y2="0" stroke="#00fff7" stroke-width="0.5"/>
+    <line x1="960" y1="540" x2="1920" y2="0" stroke="#00fff7" stroke-width="0.5"/>
+  </g>
+  <!-- Horizontal neon lines -->
+  <rect x="0" y="538" width="1920" height="2" fill="url(#neonLine1)" filter="url(#neonGlow)"/>
+  <rect x="200" y="700" width="1520" height="1" fill="url(#neonLine2)" opacity="0.4"/>
+  <rect x="400" y="380" width="1120" height="1" fill="url(#neonLine2)" opacity="0.3"/>
+  <!-- Floating particles -->
+  <circle cx="200" cy="200" r="2" fill="#bd93f9" opacity="0.5"/>
+  <circle cx="500" cy="300" r="1.5" fill="#00fff7" opacity="0.4"/>
+  <circle cx="1400" cy="250" r="2" fill="#ff79c6" opacity="0.3"/>
+  <circle cx="1700" cy="400" r="1.5" fill="#bd93f9" opacity="0.4"/>
+  <circle cx="300" cy="800" r="2" fill="#00fff7" opacity="0.3"/>
+  <circle cx="1600" cy="750" r="1.5" fill="#bd93f9" opacity="0.5"/>
+  <circle cx="800" cy="900" r="2" fill="#ff79c6" opacity="0.3"/>
+  <!-- Logo center -->
+  <g filter="url(#neonGlow)">
+    <text x="960" y="520" font-family="Inter, Arial, sans-serif" font-size="80" font-weight="900" fill="#bd93f9" text-anchor="middle" opacity="0.9">Phantom</text>
+  </g>
+  <text x="960" y="520" font-family="Inter, Arial, sans-serif" font-size="80" font-weight="900" fill="#bd93f9" text-anchor="middle">Phantom</text>
+  <text x="960" y="570" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="300" fill="#00fff7" text-anchor="middle" opacity="0.8">A  R  C  H</text>
+  <!-- Version badge -->
+  <rect x="890" y="590" width="140" height="26" rx="13" fill="none" stroke="#bd93f9" stroke-width="1" opacity="0.5"/>
+  <text x="960" y="608" font-family="Inter, Arial, sans-serif" font-size="12" fill="#8b8da3" text-anchor="middle">V5.0 PHANTOM</text>
+</svg>
